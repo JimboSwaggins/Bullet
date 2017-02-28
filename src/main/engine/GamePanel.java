@@ -237,7 +237,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				double dy = py - ey;
 				double dist = Math.sqrt(dx*dx + dy*dy);
 		
-				if(dist < projRadius+playerRadius&&dist >= 2){
+				if(dist < projRadius + playerRadius&&dist >= 2){
 					score++;
 				}			
 				if(dist < 2){
