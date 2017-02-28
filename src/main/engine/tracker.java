@@ -6,8 +6,8 @@ import java.awt.Graphics2D;
 import java.util.Random;
 
 public class tracker {
-	private int x;
-	private int y;
+	private double x;
+	private double y;
 	private int r;
 	
 	private double rot; 
@@ -15,9 +15,14 @@ public class tracker {
 	private boolean firing;
 	private long bossTimer1;
 	private long bossTimer2;
+	private long bossTimer3;
+	private long bossTimer4;
 	private long bossShot1;
 	private long bossShot2;
+	private long bossShot3;
+	private long bossShot4;
 	private Color color1;
+	private boolean secondStage;
 	
 	
 	private long badTimer1;
@@ -31,8 +36,8 @@ public class tracker {
 	
 	private type rank;
 	
-	public int getX(){return x;}
-	public int getY(){return y;}
+	public double getX(){return x;}
+	public double getY(){return y;}
 	public int getR(){return r;}
 	
 	private boolean dead;
@@ -45,7 +50,7 @@ public class tracker {
 		r = 4;
 		
 		
-		health = 50;
+		health = 200;
 		firing = false;
 		bossTimer1 = System.nanoTime();
 		bossTimer2 = System.nanoTime();
@@ -64,8 +69,9 @@ public class tracker {
 		this.rank = level;
 		r = 4;
 		
+		secondStage = false;
 		
-		health = 50;
+		health = 100;
 		firing = false;
 		bossTimer1 = System.nanoTime();
 		bossTimer2 = System.nanoTime();
@@ -79,29 +85,54 @@ public class tracker {
 		
 		color1 = Color.BLUE;
 	}
-	
+	public int getHealth(){
+		return this.health;
+	}
 	private boolean top = true;
 	private boolean bottom = false;	
 	public void movPat(){
-		if(top){
-			if(y-1 < 0){
-				bottom = true;
-				top = false;
-			}else{
-				y--;
+		if(health >= 80){
+			if(top){
+				if(y-1 < 0){
+					bottom = true;
+					top = false;
+				}else{
+					y--;
+				}
+			}
+			if(bottom){
+				if(y+1 > GamePanel.Height){
+					bottom = false;
+					top = true;
+				}
+				else{
+					y++;
+				}
 			}
 		}
-		if(bottom){
-			if(y+1 > GamePanel.Height){
-				bottom = false;
-				top = true;
-			}
-			else{
-				y++;
-			}
+		
+		if(health <= 80 && secondStage == false){
+			health = 80;
+			if(405 < x&&x < 400 &&405 < y&& y< 400){
+				secondStage = true;
+			}else{setHasTarget();}
+		}
+		if(health <= 80&&secondStage == true){
+			spiral(36, 0, 10, 1, 6, Color.RED);
 		}
 	}
 	
+	
+	public void setHasTarget(){
+	    	double deltaX = 200 - x;
+	        double deltaY = 200 - y;
+	        double direction = Math.atan2(deltaY, deltaX); // Math.atan2(deltaY, deltaX) does the same thing but checks for deltaX being zero to prevent divide-by-zero exceptions
+	        int speed = 5;
+	        x = (getX() + (speed * Math.cos(direction)));
+	        y = (getY() + (speed * Math.sin(direction)));
+	}
+
+
 	public void hit(){
 		this.health--;
 		if(health <= 0){
@@ -187,7 +218,7 @@ public class tracker {
 	
 	public void draw(Graphics2D g){
 		g.setColor(color1);
-		g.fillOval(x-r, y-r, 2*r, 2*r);
+		g.fillOval((int)(x)-r, (int)(y)-r, 2*r, 2*r);
 		
 		g.setStroke(new BasicStroke(3));
 		g.setStroke(new BasicStroke(1));

@@ -27,7 +27,7 @@ public class eTalis {
 		LINEAR, QUADRATIC
 	}
 	
-	public eTalis(int angle, int x, int y, double speed, int radius, Color COLOR){
+	public eTalis(int angle, double x, double y, double speed, int radius, Color COLOR){
 		
 		this.x = x;
 		this.y = y;
@@ -45,7 +45,7 @@ public class eTalis {
 		
 		color1 = COLOR;
 	}
-	public eTalis(double angle, int x, int y, double speed, int radius, Color COLOR){
+	public eTalis(double angle, double x, double y, double speed, int radius, Color COLOR){
 		
 		this.x = x;
 		this.y = y;

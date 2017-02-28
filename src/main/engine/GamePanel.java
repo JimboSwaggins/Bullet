@@ -278,7 +278,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
 		lilly.draw(g);
 		g.drawString("Score:" + Integer.toString(score), 50, 50);
-		g.drawString("FPS: "+ Double.toString(averageFPS), 50, 65);
+		g.drawString("FPS: "+ Double.toString(joo.getHealth()), 50, 65);
 		
 	}
 	
