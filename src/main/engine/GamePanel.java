@@ -240,7 +240,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				if(dist < projRadius + playerRadius&&dist >= 2){
 					score++;
 				}			
-				if(dist < 2){
+				if(dist < 3){
 					score -= 150;
 					eShot.remove(k);
 					k--;
