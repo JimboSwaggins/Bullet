@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import main.engine.tracker.type;
+
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static int Width = 400;
@@ -36,17 +38,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static ArrayList<tracker> eList;
 	
 	public GamePanel(){
+		
 		super();
 		FPS = 60;
 		setPreferredSize(new Dimension(Width, Height));
 		setFocusable(true);
 		requestFocus();
 		score = 0;
+		
 		lilly = new Player();
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
 		eList = new ArrayList<tracker>();
-		joo = new tracker(200, 10);
+		joo = new tracker(200, 10, type.BOSS);
 		eList.add(joo);
 	}
 	
@@ -178,6 +182,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			eList.get(i).update(lilly);
 			if(eList.get(i).isDead()){
 				eList.remove(i);
+				score += 500;
 				i--;
 			}
 			
@@ -240,7 +245,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				if(dist < projRadius + playerRadius&&dist >= 2){
 					score++;
 				}			
-				if(dist < 3){
+				if(dist < projRadius/2){
 					score -= 150;
 					eShot.remove(k);
 					k--;
@@ -254,8 +259,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g.fillRect(0, 0, Width, Height);
 		g.setColor(Color.BLACK);
 		
-		g.drawString(Integer.toString(score), 50, 50);
-		g.drawString("FPS: "+ Double.toString(averageFPS), 50, 65);
 		
 		for(int i = 0; i < shots.size(); i++){
 			shots.get(i).draw(g);
@@ -267,6 +270,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			eList.get(i).draw(g);
 		}
 		lilly.draw(g);
+		g.drawString("Score:" + Integer.toString(score), 50, 50);
+		g.drawString("FPS: "+ Double.toString(averageFPS), 50, 65);
+		
 	}
 	
 	private void gameDraw(){

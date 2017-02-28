@@ -22,6 +22,29 @@ public class eTalis {
 	public double getY(){return y;}
 	public double getR(){return r;}
 	
+	
+	public enum shotType{
+		LINEAR, QUADRATIC
+	}
+	
+	public eTalis(int angle, int x, int y, double speed, int radius, Color COLOR){
+		
+		this.x = x;
+		this.y = y;
+		r = radius;
+		
+		rad = Math.toRadians(angle);
+		
+		this.speed = speed;
+		
+		
+		this.dx = Math.cos(rad) * speed;
+		this.dy = Math.sin(rad) * speed;
+		
+		
+		
+		color1 = COLOR;
+	}
 	public eTalis(double angle, int x, int y, double speed, int radius, Color COLOR){
 		
 		this.x = x;
