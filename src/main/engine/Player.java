@@ -108,7 +108,7 @@ public class Player {
 		if(firing){
 			long elapsed = (System.nanoTime() - firingTimer) / 1000000;
 			if(elapsed > firingDelay){
-				spiral(1, 0, 0, 15, 2, Color.BLACK );
+				spiral(1, 0, 0, 15, 4, Color.BLACK );
 				firingTimer = System.nanoTime();
 				
 			}

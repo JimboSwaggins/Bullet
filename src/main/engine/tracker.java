@@ -73,7 +73,7 @@ public class tracker {
 		
 		secondStage = false;
 		
-		health = 100;
+		health = 180;
 		firing = false;
 		bossTimer1 = System.nanoTime();
 		bossTimer2 = System.nanoTime();
