@@ -25,11 +25,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private BufferedImage image;
 	private Graphics2D g;
 	
-	public int score;
+	public static int score;
 	private int FPS;
 	private double averageFPS;
 	
-	
+	public static void point(){
+		score++;
+	}
 	public static tracker joo;
 
 	public static Player lilly;

@@ -54,6 +54,8 @@ public class tracker {
 		firing = false;
 		bossTimer1 = System.nanoTime();
 		bossTimer2 = System.nanoTime();
+		
+		
 		bossShot1 = reloadA;
 		bossShot2 = reloadB;
 		
@@ -75,8 +77,10 @@ public class tracker {
 		firing = false;
 		bossTimer1 = System.nanoTime();
 		bossTimer2 = System.nanoTime();
+		bossTimer3 = System.nanoTime();
 		bossShot1 = 200;
 		bossShot2 = 200;
+		bossShot3 = 500;
 		
 		badTimer1 = System.nanoTime();
 		badShot1 = 300;
@@ -91,7 +95,7 @@ public class tracker {
 	private boolean top = true;
 	private boolean bottom = false;	
 	public void movPat(){
-		if(health >= 80){
+		if(health > 80){
 			if(top){
 				if(y-1 < 0){
 					bottom = true;
@@ -113,25 +117,25 @@ public class tracker {
 		
 		if(health <= 80 && secondStage == false){
 			health = 80;
-			if(405 < x&&x < 400 &&405 < y&& y< 400){
+			if(y > 200){
+				y--;
+			}
+			if(y < 200){
+				y++;
+			}
+			if(y==200){
 				secondStage = true;
-			}else{setHasTarget();}
+			}
+			for(int i = 0; i < GamePanel.eShot.size(); i++){
+				GamePanel.eShot.remove(i);
+				GamePanel.point();
+			}
 		}
-		if(health <= 80&&secondStage == true){
-			spiral(36, 0, 10, 1, 6, Color.RED);
+		if(secondStage == true){
+			x = 200;
+			y = 200;
 		}
 	}
-	
-	
-	public void setHasTarget(){
-	    	double deltaX = 200 - x;
-	        double deltaY = 200 - y;
-	        double direction = Math.atan2(deltaY, deltaX); // Math.atan2(deltaY, deltaX) does the same thing but checks for deltaX being zero to prevent divide-by-zero exceptions
-	        int speed = 5;
-	        x = (getX() + (speed * Math.cos(direction)));
-	        y = (getY() + (speed * Math.sin(direction)));
-	}
-
 
 	public void hit(){
 		this.health--;
@@ -142,8 +146,6 @@ public class tracker {
 	
 	public void update(Player player){
 		movPat();
-		
-		
 		rot += 13;
 		if(rot > 360){
 			rot -= 360;
@@ -156,13 +158,23 @@ public class tracker {
 				case BOSS:
 					long bShot1T = (System.nanoTime() - bossTimer1) / 1000000;
 					long bShot2T =  (System.nanoTime() - bossTimer2) / 1000000;
-					if(bShot1T > bossShot1&&top&&y<300){
-						spiral(36, 0, 10, 1, 6, Color.RED);
-						bossTimer1 = System.nanoTime();
+					long bShot3T = (System.nanoTime() - bossTimer3) / 1000000;
+					if(secondStage == false&&health > 80){
+						if(bShot1T > bossShot1&&top&&y<300){
+							spiral(36, 0, 10, 1, 6, Color.RED);
+							bossTimer1 = System.nanoTime();
+						}
+						if(bShot2T > bossShot2&&bottom&&y>50){
+							targeted(3, 45, 5, 6, Color.BLUE, player);
+							bossTimer2 = System.nanoTime();
+						}
 					}
-					if(bShot2T > bossShot2&&bottom&&y>50){
-						targeted(3, 45, 5, 6, Color.BLUE, player);
-						bossTimer2 = System.nanoTime();
+					if(secondStage == true){
+						if(bShot3T > bossShot3){
+							blast(10, 70, 3, 3, 3, Color.RED, player);
+							bossTimer3 = System.nanoTime();
+							bossShot3 = ((health+5)*10);
+						}
 					}
 					break;
 				case BADDIE:
