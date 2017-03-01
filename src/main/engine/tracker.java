@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Random;
 
+import main.engine.eTalis.shotType;
+
 public class tracker {
 	private double x;
 	private double y;
@@ -22,7 +24,7 @@ public class tracker {
 	private long bossShot3;
 	private long bossShot4;
 	private Color color1;
-	private boolean secondStage;
+	private boolean secondStage = false;
 	
 	
 	private long badTimer1;
@@ -71,12 +73,14 @@ public class tracker {
 		
 		secondStage = false;
 		
-		health = 100;
+		health = 180;
 		firing = false;
 		bossTimer1 = System.nanoTime();
 		bossTimer2 = System.nanoTime();
+		bossTimer3 = System.nanoTime();
 		bossShot1 = 200;
 		bossShot2 = 200;
+		bossShot3 = 500;
 		
 		badTimer1 = System.nanoTime();
 		badShot1 = 300;
@@ -113,12 +117,12 @@ public class tracker {
 		
 		if(health <= 80 && secondStage == false){
 			health = 80;
-			if(405 < x&&x < 400 &&405 < y&& y< 400){
-				secondStage = true;
-			}else{setHasTarget();}
-		}
-		if(health <= 80&&secondStage == true){
-			spiral(36, 0, 10, 1, 6, Color.RED);
+			if(200 < x||x < 205 &&200 < y||y< 200){
+				x = 200;
+				y = 200;
+				this.secondStage = true;
+			}
+			else{setHasTarget();}
 		}
 	}
 	
@@ -156,6 +160,8 @@ public class tracker {
 				case BOSS:
 					long bShot1T = (System.nanoTime() - bossTimer1) / 1000000;
 					long bShot2T =  (System.nanoTime() - bossTimer2) / 1000000;
+					long bShot3T = (System.nanoTime() - bossTimer3) / 1000000;
+				if(!secondStage){	
 					if(bShot1T > bossShot1&&top&&y<300){
 						spiral(36, 0, 10, 1, 6, Color.RED);
 						bossTimer1 = System.nanoTime();
@@ -164,6 +170,17 @@ public class tracker {
 						targeted(3, 45, 5, 6, Color.BLUE, player);
 						bossTimer2 = System.nanoTime();
 					}
+				}else{
+					if(bShot3T > bossShot3){
+						try{bossShot3 = 450/(80/this.health+1);}
+						catch(Exception e){
+							e.printStackTrace();
+						}
+						blast(7, 120, 1, 4, 4, Color.RED, player);
+						bossTimer3 = System.nanoTime();
+					}
+					
+				}
 					break;
 				case BADDIE:
 					long badShot1T = (System.nanoTime() - badTimer1) / 1000000;
@@ -185,8 +202,7 @@ public class tracker {
 			GamePanel.eShot.add(new eTalis(this.rot - (start + (change*i)), x, y, speed, radius, COLOR));
 		}
 	}
-	
-	
+
 	//Multiple Angle Targeted Shot Constructor
 	private void targeted (int amount, double change, double speed, int radius, Color COLOR, Player player){
 		double start = (amount * change)/2;
