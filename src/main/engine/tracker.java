@@ -73,11 +73,12 @@ public class tracker {
 		
 		secondStage = false;
 		
-		health = 180;
+		health = 81;
 		firing = false;
 		bossTimer1 = System.nanoTime();
 		bossTimer2 = System.nanoTime();
 		bossTimer3 = System.nanoTime();
+		
 		bossShot1 = 200;
 		bossShot2 = 200;
 		bossShot3 = 500;
@@ -114,29 +115,41 @@ public class tracker {
 				}
 			}
 		}
-		
+		if(secondStage == true){
+			x += 0;
+			y +=0;
+		}
 		if(health <= 80 && secondStage == false){
 			health = 80;
-			if(y > 200){
-				y--;
-			}
-			if(y < 200){
-				y++;
-			}
-			if(y==200){
-				secondStage = true;
-			}
+			goToPoint(300, 75);
 			for(int i = 0; i < GamePanel.eShot.size(); i++){
 				GamePanel.eShot.remove(i);
 				GamePanel.point();
 			}
 		}
 		if(secondStage == true){
-			x = 200;
-			y = 200;
+			x += 0;
+			y += 0;
 		}
 	}
 
+	
+	private void goToPoint(int x, int y){
+		double dx = (x - this.x);
+		double dy = (y - this.y);
+		
+		double angle = (Math.atan2(dy, dx));
+		if((x - 3) < this.x||this.x < (x + 3)){
+			this.x += Math.cos(angle) * 1;
+		}
+		if((y - 3) < this.y||this.y < (y + 3)){
+			this.y += Math.sin(angle) * 1;
+		}
+		if((int)this.x == x&&(int)this.y == y){
+			this.secondStage = true;
+		}
+	}
+	
 	public void hit(){
 		this.health--;
 		if(health <= 0){
