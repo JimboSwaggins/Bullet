@@ -25,11 +25,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private BufferedImage image;
 	private Graphics2D g;
 	
-	public int score;
+	public static int score;
 	private int FPS;
 	private double averageFPS;
 	
-	
+	public static void point(){
+		score++;
+	}
 	public static tracker joo;
 
 	public static Player lilly;
@@ -277,8 +279,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			eList.get(i).draw(g);
 		}
 		lilly.draw(g);
-		g.drawString("Score:" + Integer.toString(score), 50, 50);
-		g.drawString("FPS: "+ Double.toString(joo.getHealth()), 50, 65);
+		g.drawString("Score:" + Double.toString(joo.getX()), 50, 50);
+		g.drawString("FPS: "+ Double.toString(joo.getY()), 50, 65);
 		
 	}
 	
