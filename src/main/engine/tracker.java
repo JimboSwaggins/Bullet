@@ -189,7 +189,7 @@ public class tracker {
 						if(bShot3T > bossShot3){
 							blast(10, 70, 3, 3, 3, Color.RED, player);
 							bossTimer3 = System.nanoTime();
-							bossShot3 = ((health+5)*10;
+							bossShot3 = ((health+5)*10);
 						}
 					}
 					if(thirdStage = true){
