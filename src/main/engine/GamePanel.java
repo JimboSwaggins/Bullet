@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	public static int score;
 	private int FPS;
+	@SuppressWarnings("unused")
 	private double averageFPS;
 	
 	public static void point(){
@@ -108,8 +109,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent Key){
-		// TODO Auto-generated method stub
-		
 	}
 	
 	//Functions
@@ -279,8 +278,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			eList.get(i).draw(g);
 		}
 		lilly.draw(g);
-		g.drawString("Score:" + Double.toString(joo.getX()), 50, 50);
-		g.drawString("FPS: "+ Double.toString(joo.getY()), 50, 65);
+		g.drawString("Score:" + Integer.toString(score), 50, 50);
+		g.drawString("Enemy Health "+ Double.toString(joo.getHealth()), 50, 65);
 		
 	}
 	

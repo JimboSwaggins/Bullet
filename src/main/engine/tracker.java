@@ -16,13 +16,16 @@ public class tracker {
 	private long bossTimer1;
 	private long bossTimer2;
 	private long bossTimer3;
+	@SuppressWarnings("unused")
 	private long bossTimer4;
 	private long bossShot1;
 	private long bossShot2;
 	private long bossShot3;
+	@SuppressWarnings("unused")
 	private long bossShot4;
 	private Color color1;
 	private boolean secondStage;
+	private boolean thirdStage;
 	
 	
 	private long badTimer1;
@@ -73,15 +76,17 @@ public class tracker {
 		
 		secondStage = false;
 		
-		health = 81;
+		health = 180;
 		firing = false;
 		bossTimer1 = System.nanoTime();
 		bossTimer2 = System.nanoTime();
 		bossTimer3 = System.nanoTime();
+		bossTimer4 = System.nanoTime();
 		
 		bossShot1 = 200;
 		bossShot2 = 200;
 		bossShot3 = 500;
+		bossShot4 = 100;
 		
 		badTimer1 = System.nanoTime();
 		badShot1 = 300;
@@ -121,15 +126,11 @@ public class tracker {
 		}
 		if(health <= 80 && secondStage == false){
 			health = 80;
-			goToPoint(300, 75);
+			goToPoint(200, 200);
 			for(int i = 0; i < GamePanel.eShot.size(); i++){
 				GamePanel.eShot.remove(i);
 				GamePanel.point();
 			}
-		}
-		if(secondStage == true){
-			x += 0;
-			y += 0;
 		}
 	}
 
@@ -139,14 +140,16 @@ public class tracker {
 		double dy = (y - this.y);
 		
 		double angle = (Math.atan2(dy, dx));
-		if((x - 3) < this.x||this.x < (x + 3)){
+		if((x - 3) <= this.x||this.x <= (x + 3)){
 			this.x += Math.cos(angle) * 1;
 		}
-		if((y - 3) < this.y||this.y < (y + 3)){
+		if((y - 3) <= this.y||this.y <= (y + 3)){
 			this.y += Math.sin(angle) * 1;
 		}
-		if((int)this.x == x&&(int)this.y == y){
+		if((int)this.x == x+1||(int)this.x == x-1&&(int)this.y == y+1||(int)this.y == y-1){
 			this.secondStage = true;
+			this.x = x;
+			this.y = y;
 		}
 	}
 	
@@ -186,8 +189,11 @@ public class tracker {
 						if(bShot3T > bossShot3){
 							blast(10, 70, 3, 3, 3, Color.RED, player);
 							bossTimer3 = System.nanoTime();
-							bossShot3 = ((health+5)*10);
+							bossShot3 = ((health+5)*10;
 						}
+					}
+					if(thirdStage = true){
+						
 					}
 					break;
 				case BADDIE:
