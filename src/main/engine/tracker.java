@@ -13,7 +13,7 @@ public class tracker {
 	private double rot; 
 	
 	private boolean firing;
-	private long bossTimer1;
+	private long shotTimer1;
 	private long bossTimer2;
 	private long bossTimer3;
 	@SuppressWarnings("unused")
@@ -55,7 +55,7 @@ public class tracker {
 		
 		health = 200;
 		firing = false;
-		bossTimer1 = System.nanoTime();
+		shotTimer1 = System.nanoTime();
 		bossTimer2 = System.nanoTime();
 		
 		
@@ -78,7 +78,7 @@ public class tracker {
 		
 		health = 180;
 		firing = false;
-		bossTimer1 = System.nanoTime();
+		shotTimer1 = System.nanoTime();
 		bossTimer2 = System.nanoTime();
 		bossTimer3 = System.nanoTime();
 		bossTimer4 = System.nanoTime();
@@ -172,13 +172,13 @@ public class tracker {
 			
 			switch(rank){
 				case BOSS:
-					long bShot1T = (System.nanoTime() - bossTimer1) / 1000000;
+					long bShot1T = (System.nanoTime() - shotTimer1) / 1000000;
 					long bShot2T =  (System.nanoTime() - bossTimer2) / 1000000;
 					long bShot3T = (System.nanoTime() - bossTimer3) / 1000000;
 					if(secondStage == false&&health > 80){
 						if(bShot1T > bossShot1&&top&&y<300){
 							spiral(36, 0, 10, 1, 6, Color.RED);
-							bossTimer1 = System.nanoTime();
+							shotTimer1 = System.nanoTime();
 						}
 						if(bShot2T > bossShot2&&bottom&&y>50){
 							targeted(3, 45, 5, 6, Color.BLUE, player);
