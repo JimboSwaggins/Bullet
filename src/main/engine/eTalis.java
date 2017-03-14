@@ -27,24 +27,6 @@ public class eTalis {
 		LINEAR, QUADRATIC
 	}
 	
-	public eTalis(int angle, double x, double y, double speed, int radius, Color COLOR){
-		
-		this.x = x;
-		this.y = y;
-		r = radius;
-		
-		rad = Math.toRadians(angle);
-		
-		this.speed = speed;
-		
-		
-		this.dx = Math.cos(rad) * speed;
-		this.dy = Math.sin(rad) * speed;
-		
-		
-		
-		color1 = COLOR;
-	}
 	public eTalis(double angle, double x, double y, double speed, int radius, Color COLOR){
 		
 		this.x = x;

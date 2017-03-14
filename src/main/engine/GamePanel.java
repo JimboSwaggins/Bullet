@@ -40,6 +40,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static ArrayList<eTalis> eShot;
 	public static ArrayList<tracker> eList;
 	
+	public enum gameState{
+		START, RUN, END
+	}
+	
 	public GamePanel(){
 		
 		super();

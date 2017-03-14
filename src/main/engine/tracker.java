@@ -12,26 +12,20 @@ public class tracker {
 	
 	private double rot; 
 	
-	private boolean firing;
 	private long shotTimer1;
-	private long bossTimer2;
-	private long bossTimer3;
-	@SuppressWarnings("unused")
-	private long bossTimer4;
-	private long bossShot1;
-	private long bossShot2;
-	private long bossShot3;
-	@SuppressWarnings("unused")
-	private long bossShot4;
+	private long shotTimer2;
+	private long shotTimer3;
+	private long shot1ReloadTime;
+	private long shot2reloadTime;
+	private long shot3ReloadTime;
 	private Color color1;
 	private boolean secondStage;
-	private boolean thirdStage;
-	
-	
-	private long badTimer1;
-	private long badShot1;
+
 	
 	private int health;
+	public int getHealth(){
+		return this.health;
+	}
 	
 	public enum type{
 		BOSS, BADDIE;
@@ -54,13 +48,12 @@ public class tracker {
 		
 		
 		health = 200;
-		firing = false;
 		shotTimer1 = System.nanoTime();
-		bossTimer2 = System.nanoTime();
+		shotTimer2 = System.nanoTime();
 		
 		
-		bossShot1 = reloadA;
-		bossShot2 = reloadB;
+		shot1ReloadTime = reloadA;
+		shot2reloadTime = reloadB;
 		
 		dead = false;
 		
@@ -77,27 +70,22 @@ public class tracker {
 		secondStage = false;
 		
 		health = 180;
-		firing = false;
 		shotTimer1 = System.nanoTime();
-		bossTimer2 = System.nanoTime();
-		bossTimer3 = System.nanoTime();
-		bossTimer4 = System.nanoTime();
+		shotTimer2 = System.nanoTime();
+		shotTimer3 = System.nanoTime();
 		
-		bossShot1 = 200;
-		bossShot2 = 200;
-		bossShot3 = 500;
-		bossShot4 = 100;
+		shot1ReloadTime = 200;
+		shot2reloadTime = 200;
+		shot3ReloadTime = 500;
 		
-		badTimer1 = System.nanoTime();
-		badShot1 = 300;
+		shotTimer1 = System.nanoTime();
+		shot1ReloadTime = 300;
 		
 		dead = false;
 		
 		color1 = Color.BLUE;
 	}
-	public int getHealth(){
-		return this.health;
-	}
+	
 	private boolean top = true;
 	private boolean bottom = false;	
 	public void movPat(){
@@ -162,53 +150,41 @@ public class tracker {
 	
 	public void update(Player player){
 		movPat();
-		rot += 13;
-		if(rot > 360){
-			rot -= 360;
+		rot +=5;
+		switch(rank){
+			case BOSS:
+				long bShot1T = (System.nanoTime() - shotTimer1) / 1000000;
+				long bShot2T =  (System.nanoTime() - shotTimer2) / 1000000;
+				long bShot3T = (System.nanoTime() - shotTimer3) / 1000000;
+				if(secondStage == false&&health > 80){
+					if(bShot1T > shot1ReloadTime&&top&&y<300){
+						spiral(36, 0, 10, 1, 6, Color.RED);
+						shotTimer1 = System.nanoTime();
+					}
+					if(bShot2T > shot2reloadTime&&bottom&&y>50){
+						targeted(3, 45, 5, 6, Color.BLUE, player);
+						shotTimer2 = System.nanoTime();
+					}
+				}
+				if(secondStage == true){
+					if(bShot3T > shot3ReloadTime){
+						blast(10, 70, 3, 3, 3, Color.RED, player);
+						shotTimer3 = System.nanoTime();
+						shot3ReloadTime = ((health+5)*10);
+					}
+				}
+				break;
+			case BADDIE:
+				long badShot1T = (System.nanoTime() - shotTimer1) / 1000000;
+				if(badShot1T > shot1ReloadTime){
+					targeted(5, 5, Color.RED, player);
+					shotTimer1 = System.nanoTime();
+				}
+				break;
+			default:
+				System.out.println("NoClassDefined");
+				break;
 		}
-		firing = true;
-		
-		if(firing){
-			
-			switch(rank){
-				case BOSS:
-					long bShot1T = (System.nanoTime() - shotTimer1) / 1000000;
-					long bShot2T =  (System.nanoTime() - bossTimer2) / 1000000;
-					long bShot3T = (System.nanoTime() - bossTimer3) / 1000000;
-					if(secondStage == false&&health > 80){
-						if(bShot1T > bossShot1&&top&&y<300){
-							spiral(36, 0, 10, 1, 6, Color.RED);
-							shotTimer1 = System.nanoTime();
-						}
-						if(bShot2T > bossShot2&&bottom&&y>50){
-							targeted(3, 45, 5, 6, Color.BLUE, player);
-							bossTimer2 = System.nanoTime();
-						}
-					}
-					if(secondStage == true){
-						if(bShot3T > bossShot3){
-							blast(10, 70, 3, 3, 3, Color.RED, player);
-							bossTimer3 = System.nanoTime();
-							bossShot3 = ((health+5)*10);
-						}
-					}
-					if(thirdStage = true){
-						
-					}
-					break;
-				case BADDIE:
-					long badShot1T = (System.nanoTime() - badTimer1) / 1000000;
-					if(badShot1T > badShot1){
-						targeted(5, 5, Color.RED, player);
-						badTimer1 = System.nanoTime();
-					}
-					break;
-				default:
-					System.out.println("NoClassDefined");
-					break;
-			}
-		}
-		
 	}
 	//Irregular Angle Spiral Shot Constructor
 	private void spiral (int amount, double start, double change, double speed, int radius, Color COLOR){
