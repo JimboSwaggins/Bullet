@@ -16,16 +16,13 @@ public class tracker {
 	private long shotTimer1;
 	private long bossTimer2;
 	private long bossTimer3;
-	@SuppressWarnings("unused")
-	private long bossTimer4;
-	private long bossShot1;
-	private long bossShot2;
-	private long bossShot3;
-	@SuppressWarnings("unused")
+	
+	private long shot1Reload;
+	private long shot2Reload;
+	private long shot3Reload;
 	private long bossShot4;
 	private Color color1;
 	private boolean secondStage;
-	private boolean thirdStage;
 	
 	
 	private long badTimer1;
@@ -59,8 +56,8 @@ public class tracker {
 		bossTimer2 = System.nanoTime();
 		
 		
-		bossShot1 = reloadA;
-		bossShot2 = reloadB;
+		shot1Reload = reloadA;
+		shot2Reload = reloadB;
 		
 		dead = false;
 		
@@ -83,9 +80,9 @@ public class tracker {
 		bossTimer3 = System.nanoTime();
 		bossTimer4 = System.nanoTime();
 		
-		bossShot1 = 200;
-		bossShot2 = 200;
-		bossShot3 = 500;
+		shot1Reload = 200;
+		shot2Reload = 200;
+		shot3Reload = 500;
 		bossShot4 = 100;
 		
 		badTimer1 = System.nanoTime();
@@ -176,20 +173,20 @@ public class tracker {
 					long bShot2T =  (System.nanoTime() - bossTimer2) / 1000000;
 					long bShot3T = (System.nanoTime() - bossTimer3) / 1000000;
 					if(secondStage == false&&health > 80){
-						if(bShot1T > bossShot1&&top&&y<300){
+						if(bShot1T > shot1Reload&&top&&y<300){
 							spiral(36, 0, 10, 1, 6, Color.RED);
 							shotTimer1 = System.nanoTime();
 						}
-						if(bShot2T > bossShot2&&bottom&&y>50){
+						if(bShot2T > shot2Reload&&bottom&&y>50){
 							targeted(3, 45, 5, 6, Color.BLUE, player);
 							bossTimer2 = System.nanoTime();
 						}
 					}
 					if(secondStage == true){
-						if(bShot3T > bossShot3){
+						if(bShot3T > shot3Reload){
 							blast(10, 70, 3, 3, 3, Color.RED, player);
 							bossTimer3 = System.nanoTime();
-							bossShot3 = ((health+5)*10);
+							shot3Reload = ((health+5)*10);
 						}
 					}
 					if(thirdStage = true){
