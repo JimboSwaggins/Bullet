@@ -14,14 +14,14 @@ public class tracker {
 	
 	private boolean firing;
 	private long shotTimer1;
-	private long bossTimer2;
-	private long bossTimer3;
+	private long shotTimer2;
+	private long shotTimer3;
 	
 	private long shot1Reload;
 	private long shot2Reload;
 	private long shot3Reload;
-	private long bossShot4;
-	private Color color1;
+
+	private Color thiscolor;
 	private boolean secondStage;
 	
 	
@@ -53,7 +53,7 @@ public class tracker {
 		health = 200;
 		firing = false;
 		shotTimer1 = System.nanoTime();
-		bossTimer2 = System.nanoTime();
+		shotTimer2 = System.nanoTime();
 		
 		
 		shot1Reload = reloadA;
@@ -61,7 +61,7 @@ public class tracker {
 		
 		dead = false;
 		
-		color1 = color;
+		thiscolor = color;
 	}
 	
 	//Default Enemy Constructor
@@ -76,21 +76,19 @@ public class tracker {
 		health = 180;
 		firing = false;
 		shotTimer1 = System.nanoTime();
-		bossTimer2 = System.nanoTime();
-		bossTimer3 = System.nanoTime();
-		bossTimer4 = System.nanoTime();
+		shotTimer2 = System.nanoTime();
+		shotTimer3 = System.nanoTime();
 		
 		shot1Reload = 200;
 		shot2Reload = 200;
 		shot3Reload = 500;
-		bossShot4 = 100;
 		
 		badTimer1 = System.nanoTime();
 		badShot1 = 300;
 		
 		dead = false;
 		
-		color1 = Color.BLUE;
+		thiscolor = Color.BLUE;
 	}
 	public int getHealth(){
 		return this.health;
@@ -170,8 +168,8 @@ public class tracker {
 			switch(rank){
 				case BOSS:
 					long bShot1T = (System.nanoTime() - shotTimer1) / 1000000;
-					long bShot2T =  (System.nanoTime() - bossTimer2) / 1000000;
-					long bShot3T = (System.nanoTime() - bossTimer3) / 1000000;
+					long bShot2T =  (System.nanoTime() - shotTimer2) / 1000000;
+					long bShot3T = (System.nanoTime() - shotTimer3) / 1000000;
 					if(secondStage == false&&health > 80){
 						if(bShot1T > shot1Reload&&top&&y<300){
 							spiral(36, 0, 10, 1, 6, Color.RED);
@@ -179,18 +177,15 @@ public class tracker {
 						}
 						if(bShot2T > shot2Reload&&bottom&&y>50){
 							targeted(3, 45, 5, 6, Color.BLUE, player);
-							bossTimer2 = System.nanoTime();
+							shotTimer2 = System.nanoTime();
 						}
 					}
 					if(secondStage == true){
 						if(bShot3T > shot3Reload){
 							blast(10, 70, 3, 3, 3, Color.RED, player);
-							bossTimer3 = System.nanoTime();
+							shotTimer3 = System.nanoTime();
 							shot3Reload = ((health+5)*10);
 						}
-					}
-					if(thirdStage = true){
-						
 					}
 					break;
 				case BADDIE:
@@ -245,7 +240,7 @@ public class tracker {
 	}
 	
 	public void draw(Graphics2D g){
-		g.setColor(color1);
+		g.setColor(thiscolor);
 		g.fillOval((int)(x)-r, (int)(y)-r, 2*r, 2*r);
 		
 		g.setStroke(new BasicStroke(3));
