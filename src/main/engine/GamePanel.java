@@ -33,6 +33,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static void point(){
 		score++;
 	}
+	
+	public enum GameState{
+		START, PLAY, END, PAUSE
+	}
+	
+	private GameState state;
 	public static tracker joo;
 
 	public static Player lilly;
@@ -49,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		requestFocus();
 		score = 0;
 		
+		state = GameState.PLAY;
 		lilly = new Player();
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
@@ -176,111 +183,147 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	private void gameUpdate(){
-		
-		lilly.update();
-		
-		for(int i = 0; i < eList.size(); i++){
-			eList.get(i).update(lilly);
-			if(eList.get(i).isDead()){
-				eList.remove(i);
-				score += 500;
-				i--;
-			}
-			
-		}
-		for(int i = 0; i < shots.size(); i++){
-			boolean remove = shots.get(i).update();
-			if(remove){
-				shots.remove(i);
-				i--;
+		switch(state){
+		case START:
+			break;
+		case PLAY:
+			lilly.update();
+
+			for(int i = 0; i < eList.size(); i++){
+				eList.get(i).update(lilly);
+				if(eList.get(i).isDead()){
+					eList.remove(i);
+					score += 500;
+					i--;
+				}
 				
 			}
-		}
-		for(int j = 0; j < eShot.size(); j++){
-			boolean remove = eShot.get(j).update();
-			if(remove){
-				eShot.remove(j);
-				j--;
-				
+			for(int i = 0; i < shots.size(); i++){
+				boolean remove = shots.get(i).update();
+				if(remove){
+					shots.remove(i);
+					i--;
+					
+				}
 			}
-		}
-		
-		for(int i = 0; i < shots.size(); i++){
-			Talis b = shots.get(i);
-			double bx = b.getX();
-			double by = b.getY();
-			double br = b.getR();
-			for(int j = 0; j < eList.size(); j++){
-			double ex = eList.get(j).getX();
-			double ey = eList.get(j).getY();
-			double er = eList.get(j).getR();
-			
-			double dx = bx - ex;
-			double dy = by - ey;
-			double dist = Math.sqrt(dx*dx + dy*dy);
-	
-			
-			if(dist < br + er){
-				eList.get(j).hit();
-				shots.remove(i);
-				i--;
-				break;
+			for(int j = 0; j < eShot.size(); j++){
+				boolean remove = eShot.get(j).update();
+				if(remove){
+					eShot.remove(j);
+					j--;
+					
+				}
 			}
-		}
 			
-		}
-		for(int k = 0; k < eShot.size(); k++){
-				eTalis c = 	eShot.get(k);
-				double px = c.getX();
-				double py = c.getY();
-				double projRadius = c.getR();
+			for(int i = 0; i < shots.size(); i++){
+				Talis b = shots.get(i);
+				double bx = b.getX();
+				double by = b.getY();
+				double br = b.getR();
+				for(int j = 0; j < eList.size(); j++){
+				double ex = eList.get(j).getX();
+				double ey = eList.get(j).getY();
+				double er = eList.get(j).getR();
 				
-				double ex = lilly.getX();
-				double ey = lilly.getY();
-				double playerRadius = lilly.getR();
-				
-				double dx = px - ex;
-				double dy = py - ey;
+				double dx = bx - ex;
+				double dy = by - ey;
 				double dist = Math.sqrt(dx*dx + dy*dy);
 		
-				if(dist < projRadius + playerRadius&&dist >= 2){
-					score++;
-				}			
-				if(dist < projRadius/2){
-					score -= 150;
-					eShot.remove(k);
-					k--;
+				
+				if(dist < br + er){
+					eList.get(j).hit();
+					shots.remove(i);
+					i--;
 					break;
 				}
-				if(eList.size() == 0){
-					for(int i = 0; i< eShot.size(); i++){
-						eShot.remove(i);
+			}
+				
+			}
+			for(int k = 0; k < eShot.size(); k++){
+					eTalis c = 	eShot.get(k);
+					double px = c.getX();
+					double py = c.getY();
+					double projRadius = c.getR();
+					
+					double ex = lilly.getX();
+					double ey = lilly.getY();
+					double playerRadius = lilly.getR();
+					
+					double dx = px - ex;
+					double dy = py - ey;
+					double dist = Math.sqrt(dx*dx + dy*dy);
+			
+					if(dist < projRadius + playerRadius&&dist >= 2){
 						score++;
-						i--;
+					}			
+					if(dist < projRadius/2){
+						score -= 150;
+						eShot.remove(k);
+						k--;
+						break;
+					}
+					if(eList.size() == 0){
+						for(int i = 0; i< eShot.size(); i++){
+							eShot.remove(i);
+							score++;
+							i--;
+						}
 					}
 				}
-			}
+			break;
+		case PAUSE:
+			break;
+		case END:
+			break;
+		default:
+			break;
 		}
+	}
 
 	private void gameRender(){
+		
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, Width, Height);
 		g.setColor(Color.BLACK);
 		
-		
-		for(int i = 0; i < shots.size(); i++){
-			shots.get(i).draw(g);
+		switch(state){
+		case START:
+			/**TODO ADD A TUTORIAL MESSAGE **/
+			break;
+		case PLAY:
+			for(int i = 0; i < shots.size(); i++){
+				shots.get(i).draw(g);
+			}
+			for(int j = 0; j < eShot.size(); j++){
+				eShot.get(j).draw(g);
+			}
+			for(int i = 0; i < eList.size(); i++){
+				eList.get(i).draw(g);
+			}
+			lilly.draw(g);
+			g.drawString("Score:" + Integer.toString(score), 50, 50);
+			g.drawString("Enemy Health "+ Double.toString(joo.getHealth()), 50, 65);
+			break;
+		case PAUSE:
+			for(int i = 0; i < shots.size(); i++){
+				shots.get(i).draw(g);
+			}
+			for(int j = 0; j < eShot.size(); j++){
+				eShot.get(j).draw(g);
+			}
+			for(int i = 0; i < eList.size(); i++){
+				eList.get(i).draw(g);
+			}
+			lilly.draw(g);
+			g.drawString("Score:" + Integer.toString(score), 50, 50);
+			g.drawString("Enemy Health "+ Double.toString(joo.getHealth()), 50, 65);
+			break;
+		case END:
+			g.drawString("Your score was:" + Integer.toString(score), 150, 200);
+			break;
+		default:
+			break;
 		}
-		for(int j = 0; j < eShot.size(); j++){
-			eShot.get(j).draw(g);
-		}
-		for(int i = 0; i < eList.size(); i++){
-			eList.get(i).draw(g);
-		}
-		lilly.draw(g);
-		g.drawString("Score:" + Integer.toString(score), 50, 50);
-		g.drawString("Enemy Health "+ Double.toString(joo.getHealth()), 50, 65);
-		
 	}
 	
 	private void gameDraw(){

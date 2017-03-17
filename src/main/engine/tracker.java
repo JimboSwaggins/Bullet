@@ -176,7 +176,7 @@ public class tracker {
 							shotTimer1 = System.nanoTime();
 						}
 						if(bShot2T > shot2Reload&&bottom&&y>50){
-							targeted(3, 45, 5, 6, Color.BLUE, player);
+							targeted(60, 6, 3, 3, Color.BLUE, player);
 							shotTimer2 = System.nanoTime();
 						}
 					}
