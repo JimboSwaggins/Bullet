@@ -67,25 +67,37 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	@Override
 	public void keyPressed(KeyEvent Key) {
-		int keyCode = Key.getKeyCode();
-		if(keyCode == KeyEvent.VK_LEFT){
-			lilly.setLeft(true);
-		}
-		if(keyCode == KeyEvent.VK_RIGHT){
-			lilly.setRight(true);
-		}
-		if(keyCode == KeyEvent.VK_UP){
-			lilly.setUp(true);
-		}
-		if(keyCode == KeyEvent.VK_DOWN){
-			lilly.setDown(true);
-		}
-		if(keyCode == KeyEvent.VK_SHIFT){
-			lilly.setFocus(true);
-			FPS = 1;
-		}
-		if(keyCode == KeyEvent.VK_Z){
-			lilly.setFiring(true);
+		switch(state){
+		case PLAY:
+			int keyCode = Key.getKeyCode();
+			if(keyCode == KeyEvent.VK_LEFT){
+				lilly.setLeft(true);
+			}
+			if(keyCode == KeyEvent.VK_RIGHT){
+				lilly.setRight(true);
+			}
+			if(keyCode == KeyEvent.VK_UP){
+				lilly.setUp(true);
+			}
+			if(keyCode == KeyEvent.VK_DOWN){
+				lilly.setDown(true);
+			}
+			if(keyCode == KeyEvent.VK_SHIFT){
+				lilly.setFocus(true);
+				FPS = 1;
+			}
+			if(keyCode == KeyEvent.VK_Z){
+				lilly.setFiring(true);
+			}
+			break;
+		case END:
+			break;
+		case PAUSE:
+			break;
+		case START:
+			break;
+		default:
+			break;
 		}
 	}
 
