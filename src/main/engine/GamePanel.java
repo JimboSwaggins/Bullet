@@ -25,6 +25,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private BufferedImage image;
 	private Graphics2D g;
 	
+	public static long pauseStart;
+	
 	public static int score;
 	private int FPS;
 	@SuppressWarnings("unused")
@@ -38,7 +40,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		START, PLAY, END, PAUSE
 	}
 	
-	private GameState state;
+	public static GameState getState(){
+		return state;
+	}
+	
+	private static GameState state;
 	public static tracker joo;
 
 	public static Player lilly;
@@ -55,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		requestFocus();
 		score = 0;
 		
-		state = GameState.PLAY;
+		state = GameState.START;
 		lilly = new Player();
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
@@ -64,12 +70,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		eList.add(joo);
 	}
 	
+	public static long getPause(){
+		return pauseStart;
+	}
 	
 	@Override
 	public void keyPressed(KeyEvent Key) {
+		int keyCode = Key.getKeyCode();
 		switch(state){
 		case PLAY:
-			int keyCode = Key.getKeyCode();
+			if(keyCode == KeyEvent.VK_P){
+				state = GameState.PAUSE;
+				pauseStart = System.nanoTime();
+			}
 			if(keyCode == KeyEvent.VK_LEFT){
 				lilly.setLeft(true);
 			}
@@ -93,8 +106,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		case END:
 			break;
 		case PAUSE:
+			if(keyCode == KeyEvent.VK_P){
+				state = GameState.PLAY;
+			}
 			break;
 		case START:
+			if(keyCode == KeyEvent.VK_S){
+				state = GameState.PLAY;
+				pauseStart = 0;
+			}
 			break;
 		default:
 			break;
@@ -300,7 +320,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		
 		switch(state){
 		case START:
-			/**TODO ADD A TUTORIAL MESSAGE **/
+			g.drawString("This is a game", 0, 200);
+			g.drawString("Press z to shoot", 0, 250);
+			g.drawString("Press shift to go slower", 0, 260);
+			g.drawString("Shoot at the blue dot. Don't touch ANYTHING.", 0, 270);
+			g.drawString("Getting hit takes 150 points.", 0, 280);
+			g.drawString("Get a high score please", 00, 290);
+			g.drawString("Press s to start", 00, 310);
 			break;
 		case PLAY:
 			for(int i = 0; i < shots.size(); i++){
@@ -317,18 +343,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			g.drawString("Enemy Health "+ Double.toString(joo.getHealth()), 50, 65);
 			break;
 		case PAUSE:
-			for(int i = 0; i < shots.size(); i++){
-				shots.get(i).draw(g);
-			}
-			for(int j = 0; j < eShot.size(); j++){
-				eShot.get(j).draw(g);
-			}
-			for(int i = 0; i < eList.size(); i++){
-				eList.get(i).draw(g);
-			}
-			lilly.draw(g);
-			g.drawString("Score:" + Integer.toString(score), 50, 50);
-			g.drawString("Enemy Health "+ Double.toString(joo.getHealth()), 50, 65);
+			g.drawString("paused", 1, 1);
 			break;
 		case END:
 			g.drawString("Your score was:" + Integer.toString(score), 150, 200);

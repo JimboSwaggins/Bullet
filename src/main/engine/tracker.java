@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Random;
 
+import main.engine.GamePanel.GameState;
+
 public class tracker {
 	private double x;
 	private double y;
@@ -154,29 +156,30 @@ public class tracker {
 			dead = true;
 		}
 	}
+
 	
 	public void update(Player player){
 		movPat();
-		rot += 13;
-		if(rot > 360){
-			rot -= 360;
-		}
+		rot += 6;
+
 		firing = true;
-		
-		if(firing){
+		if(firing && GamePanel.getState() == GameState.PAUSE){
 			
+		}
+		if(firing && GamePanel.getState() != GameState.PAUSE){
 			switch(rank){
 				case BOSS:
-					long bShot1T = (System.nanoTime() - shotTimer1) / 1000000;
-					long bShot2T =  (System.nanoTime() - shotTimer2) / 1000000;
-					long bShot3T = (System.nanoTime() - shotTimer3) / 1000000;
+					long bShot1T = (System.nanoTime() - shotTimer1 - GamePanel.getPause()) / 1000000;
+					long bShot2T =  (System.nanoTime() - shotTimer2 - GamePanel.getPause()) / 1000000;
+					long bShot3T = (System.nanoTime() - shotTimer3 - GamePanel.getPause()) / 1000000;
 					if(secondStage == false&&health > 80){
 						if(bShot1T > shot1Reload&&top&&y<300){
 							spiral(36, 0, 10, 1, 6, Color.RED);
 							shotTimer1 = System.nanoTime();
 						}
+						
 						if(bShot2T > shot2Reload&&bottom&&y>50){
-							targeted(60, 6, 3, 3, Color.BLUE, player);
+							targeted(3, 25, 3, 6, Color.BLUE, player);
 							shotTimer2 = System.nanoTime();
 						}
 					}
