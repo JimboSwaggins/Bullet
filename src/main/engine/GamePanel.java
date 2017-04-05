@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import main.engine.tracker.type;
+import main.engine.Bad.type;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener{
@@ -45,12 +45,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	private static GameState state;
-	public static tracker joo;
+	public static Bad joo;
 
 	public static Player lilly;
 	public static ArrayList<Talis> shots;
 	public static ArrayList<eTalis> eShot;
-	public static ArrayList<tracker> eList;
+	public static ArrayList<Bad> eList;
 	
 	public GamePanel(){
 		
@@ -65,8 +65,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		lilly = new Player();
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
-		eList = new ArrayList<tracker>();
-		joo = new tracker(200, 10, type.BOSS);
+		eList = new ArrayList<Bad>();
+		joo = new Bad(200, 10, type.BOSS);
 		eList.add(joo);
 	}
 	

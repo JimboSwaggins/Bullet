@@ -7,7 +7,7 @@ import java.util.Random;
 
 import main.engine.GamePanel.GameState;
 
-public class tracker {
+public class Bad {
 	private double x;
 	private double y;
 	private int r;
@@ -45,7 +45,7 @@ public class tracker {
 	private boolean dead;
 	public boolean isDead(){return dead;}
 	
-	public tracker(int x, int y, Color color, int reloadA, int reloadB){
+	public Bad(int x, int y, Color color, int reloadA, int reloadB){
 		this.x = x;
 		this.y = y;
 		this.rank = type.BOSS;
@@ -67,7 +67,7 @@ public class tracker {
 	}
 	
 	//Default Enemy Constructor
-	public tracker(int x, int y, type level){
+	public Bad(int x, int y, type level){
 		this.x = x;
 		this.y = y;
 		this.rank = level;
