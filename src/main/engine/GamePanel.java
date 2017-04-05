@@ -329,6 +329,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			g.drawString("Press s to start", 00, 310);
 			break;
 		case PLAY:
+			
 			for(int i = 0; i < shots.size(); i++){
 				shots.get(i).draw(g);
 			}
@@ -340,7 +341,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 			lilly.draw(g);
 			g.drawString("Score:" + Integer.toString(score), 50, 50);
-			g.drawString("Enemy Health "+ Double.toString(joo.getHealth()), 50, 65);
+			if(!joo.isDead()){
+				g.setColor(Color.ORANGE);
+				g.drawRect(10, 10, (350 *(joo.getHealth() + 1 /180)), 10);
+			}
 			break;
 		case PAUSE:
 			g.drawString("paused", 1, 1);

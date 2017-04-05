@@ -45,6 +45,7 @@ public class Bad {
 	private boolean dead;
 	public boolean isDead(){return dead;}
 	
+	//custom enemies lol
 	public Bad(int x, int y, Color color, int reloadA, int reloadB){
 		this.x = x;
 		this.y = y;
