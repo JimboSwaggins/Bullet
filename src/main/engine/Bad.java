@@ -76,7 +76,7 @@ public class Bad {
 		
 		secondStage = false;
 		
-		health = 180;
+		health = 1;
 		firing = false;
 		shotTimer1 = System.nanoTime();
 		shotTimer2 = System.nanoTime();
@@ -161,7 +161,6 @@ public class Bad {
 	
 	public void update(Player player){
 		movPat();
-		rot += 6;
 
 		firing = true;
 		if(firing && GamePanel.getState() == GameState.PAUSE){
@@ -175,7 +174,7 @@ public class Bad {
 					long bShot3T = (System.nanoTime() - shotTimer3 - GamePanel.getPause()) / 1000000;
 					if(secondStage == false&&health > 80){
 						if(bShot1T > shot1Reload&&top&&y<300){
-							spiral(36, 0, 10, 1, 6, Color.RED);
+							spiral(36, 0, 10, 1, 6, Color.RED, 6);
 							shotTimer1 = System.nanoTime();
 						}
 						
@@ -207,7 +206,8 @@ public class Bad {
 		
 	}
 	//Irregular Angle Spiral Shot Constructor
-	private void spiral (int amount, double start, double change, double speed, int radius, Color COLOR){
+	private void spiral (int amount, double start, double change, double speed, int radius, Color COLOR, int rotChange){
+		rot += rotChange;
 		for(int i = 0; i < amount; i++){
 			GamePanel.eShot.add(new eTalis(this.rot - (start + (change*i)), x, y, speed, radius, COLOR));
 		}
@@ -218,7 +218,7 @@ public class Bad {
 	private void targeted (int amount, double change, double speed, int radius, Color COLOR, Player player){
 		double start = (amount * change)/2;
 		float angle = (float) Math.toDegrees(Math.atan2(player.y - y, player.x - x));
-
+		rot = 0;
 	    if(angle < 0){
 	        angle += 360;
 	    }
@@ -229,6 +229,7 @@ public class Bad {
 	}
 	//Single Targeted Shot Constructor
 	private void targeted (double speed, int radius, Color COLOR, Player player){
+		rot = 0;
 		float angle = (float) Math.toDegrees(Math.atan2(player.y - y, player.x - x));
 		GamePanel.eShot.add(new eTalis(angle, x, y, speed, radius, COLOR));
 	}
@@ -236,6 +237,7 @@ public class Bad {
 	
 	//Constrained Random Scatter Shot Constructor
 	public void blast(int amount, int range, double speed, int variance, int radius, Color COLOR, Player player){
+		rot = 0;
 		for(int i = 0; i < amount; i++){
 			Random rand = new Random();
 			float angle = (float) Math.toDegrees(Math.atan2(player.y - y, player.x - x));
