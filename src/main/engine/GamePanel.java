@@ -346,7 +346,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			g.drawString("Enemy Health "+ Double.toString(joo.getHealth()), 50, 65);
 			if(!joo.isDead()){
 				g.setColor(Color.ORANGE);
-				g.drawRect(10, 10, (350 *(joo.getHealth() + 1 /180)), 10);
+				long a = (350*joo.getHealth()/180);
+				g.drawRect(10, 10, (int)a, 10);
+				g.fillRect(10, 10, (int)a, 10);
 			}
 			break;
 		case PAUSE:
@@ -355,7 +357,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		case END:
 			g.drawString("Your score was:" + Integer.toString(score), 150, 200);
 			String howgood = null;
-			if(score < -10000){howgood = "You're almost as bad at this as Orel/n is at real coding";}
+			if(score < -10000){howgood = "You're almost as bad at this as Orel/n is somewhat good at /nreal coding";}
 			if(score > -9999&&score < -5000){howgood = "If this is ur frist tim, good job, else, kys";};
 			if(score > -4999&&score < -2500){howgood = "Hey, that's not bad. jk u suck lol";};
 			if(score > -2499&&score < -1000){howgood = "Wow. U suk jej";};
