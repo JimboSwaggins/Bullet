@@ -269,7 +269,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					break;
 				}
 			}
-				
+			
+				if(eList.isEmpty()){
+					state = GameState.END;
+				}
 			}
 			for(int k = 0; k < eShot.size(); k++){
 					eTalis c = 	eShot.get(k);
@@ -347,6 +350,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			break;
 		case END:
 			g.drawString("Your score was:" + Integer.toString(score), 150, 200);
+			g.drawString
 			break;
 		default:
 			break;
