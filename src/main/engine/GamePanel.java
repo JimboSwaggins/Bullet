@@ -350,9 +350,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			break;
 		case END:
 			g.drawString("Your score was:" + Integer.toString(score), 150, 200);
-			g.drawString
-			break;
-		default:
+			String howgood;
+			if(score < -10000){howgood = "You're almost as bad at this as Orel is at real coding";}
+			if(score > -9999&&score < -5000){howgood = "If this is ur frist tim, good job, else, kys";};
+			if(score > -4999&&score < -2500){howgood = "Hey, that's not bad. jk u suck lol";};
+			if(score > -2499&&score < -1000){howgood = "Wow. U suk jej";};
+			if(score > -999&&score < -500){howgood = "Ur almost in the positive numbers kiddo";};
+			if(score > -500&&score < 0){howgood = "Its actally rel hard to get a score here";};
+			if(score > 1 && score < 499){howgood = "ur cool";};
+			if(score == 500){howgood = "HEHGODDDDEM";};
+			
 			break;
 		}
 	}
