@@ -347,8 +347,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				eList.get(i).draw(g);
 			}
 			lilly.draw(g);
-			g.drawString("Score:" + Double.toString(score), 50, 50);
-			g.drawString("Graze:" + Double.toString(graze), 50, 65);
 			if(!joo.isDead()){
 				g.setColor(Color.ORANGE);
 				long a = (350*joo.getCurrHealth()/joo.getStartHealth());
@@ -362,20 +360,28 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		case END:
 			g.drawString("Your score was:" + Double.toString((int)score), 150, 200);
 			String howgood = null;
-			if(score < -10000){howgood = "You're almost as bad at this as Orel/n is somewhat good at /nreal coding";}
-			if(score > -9999&&score < -5000){howgood = "If this is ur frist tim, good job, else, kys";};
-			if(score > -4999&&score < -2500){howgood = "Hey, that's not bad. jk u suck lol";};
-			if(score > -2499&&score < -1000){howgood = "Wow. U suk jej";};
-			if(score > -999&&score < -500){howgood = "Ur almost in the positive numbers kiddo";};
-			if(score > -500&&score < 0){howgood = "Its actally rel hard to get a score here";};
-			if(score > 1 && score < 499){howgood = "ur cool";};
-			if(score == 500){howgood = "HEHGODDDDEM";};
-			if(score > 501&&score < 100000){howgood = "heh";};
+			if(score < -10000){howgood = "F";}
+			if(score > -9999&&score < -5000){howgood = "E";};
+			if(score > -4999&&score < -2500){howgood = "D";};
+			if(score > -2499&&score < -1000){howgood = "C";};
+			if(score > -999&&score < -500){howgood = "B";};
+			if(score > -500&&score < 0){howgood = "A";};
+			if(score > 1&&score < 499){howgood = "A+";};
+			if(score > 500&&score < 1000){howgood = "A++";};
+			if(score > 1001&&score < 2499){howgood = "A+++";};
+			if(score > 2500&&score < 4999){howgood = "S";};
+			if(score > 5000&&score < 7499){howgood = "SS";};
+			if(score > 7500&&score < 9999){howgood = "SSS";};
+			if(score > 10000){howgood = "Bradley_Gore";};
 			g.drawString(howgood, 150, 220);
 			break;
 		}
 		g.setColor(Color.BLACK);
 		g.fillRect(400, 0, 200, 400);
+		g.setColor(Color.WHITE);
+		g.drawString("Score: " + Integer.toString((int)score), 450, 20);
+		g.drawString("Graze:" + Integer.toString((int)graze), 450, 45);
+		
 	}
 	
 	private void gameDraw(){
