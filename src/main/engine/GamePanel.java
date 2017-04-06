@@ -27,7 +27,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	public static long pauseStart;
 	
-	public static int score;
+	public static double score;
+	public static double graze;
 	private int FPS;
 	@SuppressWarnings("unused")
 	private double averageFPS;
@@ -53,7 +54,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static ArrayList<Bad> eList;
 	
 	public GamePanel(){
-		
 		super();
 		FPS = 60;
 		setPreferredSize(new Dimension(Width, Height));
@@ -289,7 +289,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dist = Math.sqrt(dx*dx + dy*dy);
 			
 					if(dist < projRadius + playerRadius&&dist >= 2){
-						score++;
+						graze++;
 					}			
 					if(dist < projRadius/2){
 						score -= 150;
@@ -300,7 +300,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					if(eList.size() == 0){
 						for(int i = 0; i< eShot.size(); i++){
 							eShot.remove(i);
-							score++;
+							score += (1 + (graze*0.01));
 							i--;
 						}
 					}
@@ -323,13 +323,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		
 		switch(state){
 		case START:
-			g.drawString("This is a game", 0, 200);
-			g.drawString("Press z to shoot", 0, 250);
-			g.drawString("Press shift to go slower", 0, 260);
-			g.drawString("Shoot at the blue dot. Don't touch ANYTHING.", 0, 270);
-			g.drawString("Getting hit takes 150 points.", 0, 280);
-			g.drawString("Get a high score please", 00, 290);
-			g.drawString("Press s to start", 00, 310);
+			g.drawString("This is a game", 50, 100);
+			g.drawString("Press z to shoot", 50, 112);
+			g.drawString("Press shift to go slower", 50, 124);
+			g.drawString("Shoot at the blue dot. Don't touch ANYTHING.", 50, 136);
+			g.drawString("Getting hit takes 150 points.", 50, 148);
+			g.drawString("Get a high score please", 50, 160);
+			g.drawString("Press s to start", 50, 172);
 			break;
 		case PLAY:
 			for(int i = 0; i < shots.size(); i++){
@@ -342,11 +342,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				eList.get(i).draw(g);
 			}
 			lilly.draw(g);
-			g.drawString("Score:" + Integer.toString(score), 50, 50);
-			g.drawString("Enemy Health "+ Double.toString(joo.getHealth()), 50, 65);
+			g.drawString("Score:" + Double.toString(score), 50, 50);
+			g.drawString("Graze:" + Double.toString(graze), 50, 65);
 			if(!joo.isDead()){
 				g.setColor(Color.ORANGE);
-				long a = (350*joo.getHealth()/180);
+				long a = (350*joo.getHealth()/joo.getStartHealth());
 				g.drawRect(10, 10, (int)a, 10);
 				g.fillRect(10, 10, (int)a, 10);
 			}
@@ -355,7 +355,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			g.drawString("paused", 1, 1);
 			break;
 		case END:
-			g.drawString("Your score was:" + Integer.toString(score), 150, 200);
+			g.drawString("Your score was:" + Double.toString((int)score), 150, 200);
 			String howgood = null;
 			if(score < -10000){howgood = "You're almost as bad at this as Orel/n is somewhat good at /nreal coding";}
 			if(score > -9999&&score < -5000){howgood = "If this is ur frist tim, good job, else, kys";};

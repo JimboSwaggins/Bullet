@@ -38,6 +38,11 @@ public class Bad {
 	
 	private type rank;
 	
+	private int startHealth;
+	public int getStartHealth(){
+		return startHealth;
+	}
+	
 	public double getX(){return x;}
 	public double getY(){return y;}
 	public int getR(){return r;}
@@ -76,7 +81,8 @@ public class Bad {
 		
 		secondStage = false;
 		
-		health = 1;
+		health = 180;
+		startHealth = 180;
 		firing = false;
 		shotTimer1 = System.nanoTime();
 		shotTimer2 = System.nanoTime();
@@ -164,7 +170,7 @@ public class Bad {
 
 		firing = true;
 		if(firing && GamePanel.getState() == GameState.PAUSE){
-			
+				
 		}
 		if(firing && GamePanel.getState() != GameState.PAUSE){
 			switch(rank){
