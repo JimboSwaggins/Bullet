@@ -49,37 +49,7 @@ public abstract class Bad {
 	protected boolean top = true;
 	protected boolean bottom = false;	
 	public void movPat(){
-		if(health > 80){
-			if(top){
-				if(y-1 < 0){
-					bottom = true;
-					top = false;
-				}else{
-					y--;
-				}
-			}
-			if(bottom){
-				if(y+1 > GamePanel.Height){
-					bottom = false;
-					top = true;
-				}
-				else{
-					y++;
-				}
-			}
-		}
-		if(secondStage == true){
-			x += 0;
-			y +=0;
-		}
-		if(health <= 80 && secondStage == false){
-			health = 80;
-			goToPoint(200, 200);
-			for(int i = 0; i < GamePanel.eShot.size(); i++){
-				GamePanel.eShot.remove(i);
-				GamePanel.point();
-			}
-		}
+	//TODO Add unimplemented methods
 	}
 
 	

@@ -303,7 +303,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					if(eList.size() == 0){
 						for(int i = 0; i< eShot.size(); i++){
 							eShot.remove(i);
-							score += (1 + (graze*0.01));
+							score += (1 + (0.1 * graze));
 							i--;
 						}
 					}
@@ -360,18 +360,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		case END:
 			g.drawString("Your score was:" + Double.toString((int)score), 150, 200);
 			String howgood = null;
-			if(score < -10000){howgood = "F";}
-			if(score > -9999&&score < -5000){howgood = "E";};
-			if(score > -4999&&score < -2500){howgood = "D";};
-			if(score > -2499&&score < -1000){howgood = "C";};
-			if(score > -999&&score < -500){howgood = "B";};
-			if(score > -500&&score < 0){howgood = "A";};
-			if(score > 1&&score < 499){howgood = "A+";};
-			if(score > 500&&score < 1000){howgood = "A++";};
-			if(score > 1001&&score < 2499){howgood = "A+++";};
-			if(score > 2500&&score < 4999){howgood = "S";};
-			if(score > 5000&&score < 7499){howgood = "SS";};
-			if(score > 7500&&score < 9999){howgood = "SSS";};
+			if(score < 0){howgood = "F";};
+			if(score > 1&&score < 499){howgood = "D";};
+			if(score > 500&&score < 1000){howgood = "C";};
+			if(score > 1001&&score < 2499){howgood = "B";};
+			if(score > 2500&&score < 4999){howgood = "A";};
+			if(score > 5000&&score < 7499){howgood = "S";};
+			if(score > 7500&&score < 9999){howgood = "SS";};
 			if(score > 10000){howgood = "Bradley_Gore";};
 			g.drawString(howgood, 150, 220);
 			break;

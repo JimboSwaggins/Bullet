@@ -39,7 +39,6 @@ public class Talis {
 		this.dy = Math.sin(rad) * speed;
 		
 		
-		
 		color1 = COLOR;
 	}
 	

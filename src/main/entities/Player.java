@@ -45,6 +45,7 @@ public class Player {
 	public int getR(){return r;}
 	
 	
+	
 	public Player(){
 		rot = 270;
 		x = GamePanel.Width / 2;
@@ -115,7 +116,7 @@ public class Player {
 				
 			}
 		}
-		
+
 	}
 	
 	private void spiral (int amount, double start, double change, double speed, int radius, Color COLOR){
