@@ -1,9 +1,11 @@
-package main.engine;
+package main.entities;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Random;
+
+import main.engine.GamePanel;
 
 public abstract class Bad {
 	protected double x;
@@ -110,6 +112,7 @@ public abstract class Bad {
 	public void update(Player player){
 		///TODO Add unimplemented methods
 	}
+	
 	//Irregular Angle Spiral Shot Constructor
 	protected void spiral (int amount, double start, double change, double speed, int radius, Color COLOR, int rotChange){
 		rot += rotChange;

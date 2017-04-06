@@ -11,9 +11,15 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import main.entities.Bad;
+import main.entities.BossA;
+import main.entities.Player;
+import main.entities.Talis;
+import main.entities.eTalis;
+
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener{
-	public static int Width = 400;
+	public static int Width = 600;
 	public static int Height = 400;
 	
 	private Thread thread;
@@ -218,7 +224,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			break;
 		case PLAY:
 			lilly.update();
-
 			for(int i = 0; i < eList.size(); i++){
 				eList.get(i).update(lilly);
 				if(eList.get(i).isDead()){
@@ -316,8 +321,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private void gameRender(){
 		
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, Width, Height);
+		g.fillRect(0, 0, 400, 400);
 		g.setColor(Color.BLACK);
+		
+		g.fillRect(400, 0, 600, 400);
 		
 		switch(state){
 		case START:
@@ -367,6 +374,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			g.drawString(howgood, 150, 220);
 			break;
 		}
+		g.setColor(Color.BLACK);
+		g.fillRect(400, 0, 200, 400);
 	}
 	
 	private void gameDraw(){

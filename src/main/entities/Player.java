@@ -1,8 +1,10 @@
-package main.engine;
+package main.entities;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+
+import main.engine.GamePanel;
 
 public class Player {
 
@@ -98,8 +100,8 @@ public class Player {
 		
 		if(x < r) x = r;
 		if(y < r) y = r;
-		if(x > GamePanel.Width - r) x = GamePanel.Width - r;
-		if(y > GamePanel.Height - r) y = GamePanel.Height - r;
+		if(x > 400 - r) x = 400 - r;
+		if(y > 400 - r) y = 400 - r;
 		
 		dx = 0;
 		dy = 0;

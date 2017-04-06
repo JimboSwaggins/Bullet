@@ -1,7 +1,8 @@
-package main.engine;
+package main.entities;
 
 import java.awt.Color;
 
+import main.engine.GamePanel;
 import main.engine.GamePanel.GameState;
 
 public class BossA extends Bad{
