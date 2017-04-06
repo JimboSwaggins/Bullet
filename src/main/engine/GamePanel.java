@@ -350,8 +350,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			if(!joo.isDead()){
 				g.setColor(Color.ORANGE);
 				long a = (350*joo.getCurrHealth()/joo.getStartHealth());
-				g.drawRect(10, 10, (int)a, 10);
 				g.fillRect(10, 10, (int)a, 10);
+				g.setColor(Color.RED);
+				g.fillRect((10+(350*80/180)), 10, 4, 10);
 			}
 			break;
 		case PAUSE:
@@ -367,7 +368,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			if(score > 2500&&score < 4999){howgood = "A";};
 			if(score > 5000&&score < 7499){howgood = "S";};
 			if(score > 7500&&score < 9999){howgood = "SS";};
-			if(score > 10000){howgood = "Bradley_Gore";};
+			if(score > 10000){howgood = "SSS";};
 			g.drawString(howgood, 150, 220);
 			break;
 		}

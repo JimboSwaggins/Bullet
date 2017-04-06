@@ -11,7 +11,7 @@ public class BossA extends Bad{
 		x = 200;
 		y = 200;
 		rank = type.BOSS;
-		r = 4;
+		r = 8;
 		
 		secondStage = false;
 		
