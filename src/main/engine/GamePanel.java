@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import main.engine.Bad.type;
-
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static int Width = 400;
@@ -46,7 +44,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	private static GameState state;
-	public static Bad joo;
+	public static BossA joo;
 
 	public static Player lilly;
 	public static ArrayList<Talis> shots;
@@ -66,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
 		eList = new ArrayList<Bad>();
-		joo = new Bad(200, 10, type.BOSS);
+		joo = new BossA();
 		eList.add(joo);
 	}
 	
@@ -346,7 +344,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			g.drawString("Graze:" + Double.toString(graze), 50, 65);
 			if(!joo.isDead()){
 				g.setColor(Color.ORANGE);
-				long a = (350*joo.getHealth()/joo.getStartHealth());
+				long a = (350*joo.getCurrHealth()/joo.getStartHealth());
 				g.drawRect(10, 10, (int)a, 10);
 				g.fillRect(10, 10, (int)a, 10);
 			}

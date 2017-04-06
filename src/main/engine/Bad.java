@@ -5,105 +5,47 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Random;
 
-import main.engine.GamePanel.GameState;
-
-public class Bad {
-	private double x;
-	private double y;
-	private int r;
+public abstract class Bad {
+	protected double x;
+	protected double y;
+	protected int r;
 	
-	private double rot; 
+	protected double rot; 
 	
-	private boolean firing;
-	private long shotTimer1;
-	private long shotTimer2;
-	private long shotTimer3;
+	protected boolean firing;
+	protected long shotTimer1;
+	protected long shotTimer2;
+	protected long shotTimer3;
 	
-	private long shot1Reload;
-	private long shot2Reload;
-	private long shot3Reload;
-
-	private Color thiscolor;
-	private boolean secondStage;
+	protected long shot1Reload;
+	protected long shot2Reload;
+	protected long shot3Reload;
+	protected Color thiscolor;
+	protected boolean secondStage;
 	
 	
-	private long badTimer1;
-	private long badShot1;
+	protected long badTimer1;
+	protected long badShot1;
 	
-	private int health;
+	protected int health;
 	
-	public enum type{
-		BOSS, BADDIE;
-	}
+	public enum type{BOSS, BADDIE;}
 	
-	private type rank;
+	protected type rank;
 	
-	private int startHealth;
-	public int getStartHealth(){
-		return startHealth;
-	}
+	protected int startHealth;
+	public int getStartHealth(){return startHealth;}
 	
 	public double getX(){return x;}
 	public double getY(){return y;}
 	public int getR(){return r;}
 	
-	private boolean dead;
+	protected boolean dead;
 	public boolean isDead(){return dead;}
 	
-	//custom enemies lolff
-	public Bad(int x, int y, Color color, int reloadA, int reloadB){
-		this.x = x;
-		this.y = y;
-		this.rank = type.BOSS;
-		r = 4;
-		
-		
-		health = 200;
-		firing = false;
-		shotTimer1 = System.nanoTime();
-		shotTimer2 = System.nanoTime();
-		
-		
-		shot1Reload = reloadA;
-		shot2Reload = reloadB;
-		
-		dead = false;
-		
-		thiscolor = color;
-	}
-	
-	//Default Enemy Constructor
-	public Bad(int x, int y, type level){
-		this.x = x;
-		this.y = y;
-		this.rank = level;
-		r = 4;
-		
-		secondStage = false;
-		
-		health = 180;
-		startHealth = 180;
-		firing = false;
-		shotTimer1 = System.nanoTime();
-		shotTimer2 = System.nanoTime();
-		shotTimer3 = System.nanoTime();
-		
-		shot1Reload = 200;
-		shot2Reload = 200;
-		shot3Reload = 500;
-		
-		badTimer1 = System.nanoTime();
-		badShot1 = 300;
-		
-		dead = false;
-		
-		thiscolor = Color.BLUE;
-	}
-	public int getHealth(){
-		return this.health;
-	}
-	private boolean top = true;
-	private boolean bottom = false;	
+	public int getCurrHealth(){return this.health;}
+	protected boolean top = true;
+	protected boolean bottom = false;	
 	public void movPat(){
 		if(health > 80){
 			if(top){
@@ -139,7 +81,7 @@ public class Bad {
 	}
 
 	
-	private void goToPoint(int x, int y){
+	protected void goToPoint(int x, int y){
 		double dx = (x - this.x);
 		double dy = (y - this.y);
 		
@@ -166,53 +108,10 @@ public class Bad {
 
 	
 	public void update(Player player){
-		movPat();
-
-		firing = true;
-		if(firing && GamePanel.getState() == GameState.PAUSE){
-				
-		}
-		if(firing && GamePanel.getState() != GameState.PAUSE){
-			switch(rank){
-				case BOSS:
-					long bShot1T = (System.nanoTime() - shotTimer1 - GamePanel.getPause()) / 1000000;
-					long bShot2T =  (System.nanoTime() - shotTimer2 - GamePanel.getPause()) / 1000000;
-					long bShot3T = (System.nanoTime() - shotTimer3 - GamePanel.getPause()) / 1000000;
-					if(secondStage == false&&health > 80){
-						if(bShot1T > shot1Reload&&top&&y<300){
-							spiral(36, 0, 10, 1, 6, Color.RED, 6);
-							shotTimer1 = System.nanoTime();
-						}
-						
-						if(bShot2T > shot2Reload&&bottom&&y>50){
-							targeted(3, 25, 3, 6, Color.BLUE, player);
-							shotTimer2 = System.nanoTime();
-						}
-					}
-					if(secondStage == true){
-						if(bShot3T > shot3Reload){
-							blast(10, 70, 3, 3, 3, Color.RED, player);
-							shotTimer3 = System.nanoTime();
-							shot3Reload = ((health+5)*10);
-						}
-					}
-					break;
-				case BADDIE:
-					long badShot1T = (System.nanoTime() - badTimer1) / 1000000;
-					if(badShot1T > badShot1){
-						targeted(5, 5, Color.RED, player);
-						badTimer1 = System.nanoTime();
-					}
-					break;
-				default:
-					System.out.println("NoClassDefined");
-					break;
-			}
-		}
-		
+		///TODO Add unimplemented methods
 	}
 	//Irregular Angle Spiral Shot Constructor
-	private void spiral (int amount, double start, double change, double speed, int radius, Color COLOR, int rotChange){
+	protected void spiral (int amount, double start, double change, double speed, int radius, Color COLOR, int rotChange){
 		rot += rotChange;
 		for(int i = 0; i < amount; i++){
 			GamePanel.eShot.add(new eTalis(this.rot - (start + (change*i)), x, y, speed, radius, COLOR));
@@ -221,7 +120,7 @@ public class Bad {
 	
 	
 	//Multiple Angle Targeted Shot Constructor
-	private void targeted (int amount, double change, double speed, int radius, Color COLOR, Player player){
+	protected void targeted (int amount, double change, double speed, int radius, Color COLOR, Player player){
 		double start = (amount * change)/2;
 		float angle = (float) Math.toDegrees(Math.atan2(player.y - y, player.x - x));
 		rot = 0;
@@ -234,7 +133,7 @@ public class Bad {
 		}
 	}
 	//Single Targeted Shot Constructor
-	private void targeted (double speed, int radius, Color COLOR, Player player){
+	protected void targeted (double speed, int radius, Color COLOR, Player player){
 		rot = 0;
 		float angle = (float) Math.toDegrees(Math.atan2(player.y - y, player.x - x));
 		GamePanel.eShot.add(new eTalis(angle, x, y, speed, radius, COLOR));
@@ -242,7 +141,7 @@ public class Bad {
 	
 	
 	//Constrained Random Scatter Shot Constructor
-	public void blast(int amount, int range, double speed, int variance, int radius, Color COLOR, Player player){
+	protected void blast(int amount, int range, double speed, int variance, int radius, Color COLOR, Player player){
 		rot = 0;
 		for(int i = 0; i < amount; i++){
 			Random rand = new Random();
