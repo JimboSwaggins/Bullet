@@ -8,6 +8,8 @@ public class pTalis extends eTalis{
 		super(angle, x, y, speed, radius, COLOR);
 	}
 	
-	public 
+	public static void mme(){
+		
+	}
 	
 }

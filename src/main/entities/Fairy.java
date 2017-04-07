@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Fairy extends Bad{
-	public Fairy(){
 	public Fairy(int x, int y){
 		this.x = x;
 		this.y = y;
