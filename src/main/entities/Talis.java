@@ -1,7 +1,9 @@
-package main.engine;
+package main.entities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+
+import main.engine.GamePanel;
 
 public class Talis {
 	private double x;
@@ -35,7 +37,6 @@ public class Talis {
 		
 		this.dx = Math.cos(rad) * speed;
 		this.dy = Math.sin(rad) * speed;
-		
 		
 		
 		color1 = COLOR;
