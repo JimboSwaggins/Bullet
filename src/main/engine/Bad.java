@@ -76,7 +76,7 @@ public class Bad {
 		
 		secondStage = false;
 		
-		health = 1;
+		health = 180;
 		firing = false;
 		shotTimer1 = System.nanoTime();
 		shotTimer2 = System.nanoTime();
