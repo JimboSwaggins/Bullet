@@ -11,11 +11,15 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import main.engine.Bad.type;
+import main.entities.Bad;
+import main.entities.Fairy;
+import main.entities.Player;
+import main.entities.Talis;
+import main.entities.eTalis;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener{
-	public static int Width = 400;
+	public static int Width = 600;
 	public static int Height = 400;
 	
 	private Thread thread;
@@ -27,7 +31,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	public static long pauseStart;
 	
-	public static int score;
+	public static double score;
+	public static double graze;
 	private int FPS;
 	@SuppressWarnings("unused")
 	private double averageFPS;
@@ -45,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	private static GameState state;
-	public static Bad joo;
+	public static Fairy joo;
 
 	public static Player lilly;
 	public static ArrayList<Talis> shots;
@@ -53,7 +58,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static ArrayList<Bad> eList;
 	
 	public GamePanel(){
-		
 		super();
 		FPS = 60;
 		setPreferredSize(new Dimension(Width, Height));
@@ -66,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
 		eList = new ArrayList<Bad>();
-		joo = new Bad(200, 10, type.BOSS);
+		joo = new Fairy(0, 200);
 		eList.add(joo);
 	}
 	
@@ -220,7 +224,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			break;
 		case PLAY:
 			lilly.update();
-
 			for(int i = 0; i < eList.size(); i++){
 				eList.get(i).update(lilly);
 				if(eList.get(i).isDead()){
@@ -289,7 +292,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dist = Math.sqrt(dx*dx + dy*dy);
 			
 					if(dist < projRadius + playerRadius&&dist >= 2){
-						score++;
+						graze++;
 					}			
 					if(dist < projRadius/2){
 						score -= 150;
@@ -300,7 +303,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					if(eList.size() == 0){
 						for(int i = 0; i< eShot.size(); i++){
 							eShot.remove(i);
-							score++;
+							score += (1 + (0.1 * graze));
 							i--;
 						}
 					}
@@ -318,18 +321,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private void gameRender(){
 		
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, Width, Height);
+		g.fillRect(0, 0, 400, 400);
 		g.setColor(Color.BLACK);
+		
+		g.fillRect(400, 0, 600, 400);
 		
 		switch(state){
 		case START:
-			g.drawString("This is a game", 0, 200);
-			g.drawString("Press z to shoot", 0, 250);
-			g.drawString("Press shift to go slower", 0, 260);
-			g.drawString("Shoot at the blue dot. Don't touch ANYTHING.", 0, 270);
-			g.drawString("Getting hit takes 150 points.", 0, 280);
-			g.drawString("Get a high score please", 00, 290);
-			g.drawString("Press s to start", 00, 310);
+			g.drawString("This is a game", 50, 100);
+			g.drawString("Press z to shoot", 50, 112);
+			g.drawString("Press shift to go slower", 50, 124);
+			g.drawString("Shoot at the blue dot. Don't touch ANYTHING.", 50, 136);
+			g.drawString("Getting hit takes 150 points.", 50, 148);
+			g.drawString("Get a high score please", 50, 160);
+			g.drawString("Press s to start", 50, 172);
 			break;
 		case PLAY:
 			for(int i = 0; i < shots.size(); i++){
@@ -342,31 +347,31 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				eList.get(i).draw(g);
 			}
 			lilly.draw(g);
-			g.drawString("Score:" + Integer.toString(score), 50, 50);
-			g.drawString("Enemy Health "+ Double.toString(joo.getHealth()), 50, 65);
-			if(!joo.isDead()){
-				g.setColor(Color.ORANGE);
-				g.drawRect(10, 10, (350 *(joo.getHealth() + 1 /180)), 10);
-			}
+		default:
 			break;
 		case PAUSE:
 			g.drawString("paused", 1, 1);
 			break;
 		case END:
-			g.drawString("Your score was:" + Integer.toString(score), 150, 200);
+			g.drawString("Your score was:" + Double.toString((int)score), 150, 200);
 			String howgood = null;
-			if(score < -10000){howgood = "You're almost as bad at this as Orel/n is at real coding";}
-			if(score > -9999&&score < -5000){howgood = "If this is ur frist tim, good job, else, kys";};
-			if(score > -4999&&score < -2500){howgood = "Hey, that's not bad. jk u suck lol";};
-			if(score > -2499&&score < -1000){howgood = "Wow. U suk jej";};
-			if(score > -999&&score < -500){howgood = "Ur almost in the positive numbers kiddo";};
-			if(score > -500&&score < 0){howgood = "Its actally rel hard to get a score here";};
-			if(score > 1 && score < 499){howgood = "ur cool";};
-			if(score == 500){howgood = "HEHGODDDDEM";};
-			if(score > 501&&score < 100000){howgood = "heh";};
+			if(score < 0){howgood = "F";};
+			if(score > 1&&score < 499){howgood = "D";};
+			if(score > 500&&score < 1000){howgood = "C";};
+			if(score > 1001&&score < 2499){howgood = "B";};
+			if(score > 2500&&score < 4999){howgood = "A";};
+			if(score > 5000&&score < 7499){howgood = "S";};
+			if(score > 7500&&score < 9999){howgood = "SS";};
+			if(score > 10000){howgood = "SSS";};
 			g.drawString(howgood, 150, 220);
 			break;
 		}
+		g.setColor(Color.BLACK);
+		g.fillRect(400, 0, 200, 400);
+		g.setColor(Color.WHITE);
+		g.drawString("Score: " + Integer.toString((int)score), 450, 20);
+		g.drawString("Graze:" + Integer.toString((int)graze), 450, 45);
+		
 	}
 	
 	private void gameDraw(){
