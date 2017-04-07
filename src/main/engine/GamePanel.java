@@ -31,6 +31,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	public static long pauseStart;
 	
+	public static long paraTimer;
+	public static long getPTimer(){
+		return paraTimer;
+	}
+	
 	public static double score;
 	public static double graze;
 	private int FPS;
@@ -264,7 +269,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				double dy = by - ey;
 				double dist = Math.sqrt(dx*dx + dy*dy);
 		
-				
 				if(dist < br + er){
 					eList.get(j).hit();
 					shots.remove(i);
@@ -278,6 +282,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				}
 			}
 			for(int k = 0; k < eShot.size(); k++){
+					paraTimer++;
 					eTalis c = 	eShot.get(k);
 					double px = c.getX();
 					double py = c.getY();
