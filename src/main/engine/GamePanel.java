@@ -347,13 +347,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				eList.get(i).draw(g);
 			}
 			lilly.draw(g);
-			if(!joo.isDead()){
-				g.setColor(Color.ORANGE);
-				long a = (350*joo.getCurrHealth()/joo.getStartHealth());
-				g.fillRect(10, 10, (int)a, 10);
-				g.setColor(Color.RED);
-				g.fillRect((10+(350*80/180)), 10, 4, 10);
-			}
 			break;
 		case PAUSE:
 			g.drawString("paused", 1, 1);
