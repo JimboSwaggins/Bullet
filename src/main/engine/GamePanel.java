@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import main.entities.Bad;
-import main.entities.BossA;
 import main.entities.Fairy;
 import main.entities.Player;
 import main.entities.Talis;
@@ -51,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	private static GameState state;
-	public static BossA joo;
+	public static Fairy joo;
 
 	public static Player lilly;
 	public static ArrayList<Talis> shots;
@@ -71,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
 		eList = new ArrayList<Bad>();
-		joo = new BossA();
+		joo = new Fairy(0, 200);
 		eList.add(joo);
 	}
 	

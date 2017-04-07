@@ -9,7 +9,7 @@ public class Fairy extends Bad{
 		this.y = y;
 		
 		rank = type.BADDIE;
-		r = 5;
+		r = 10;
 		
 		shotTimer1 = System.nanoTime();
 		
@@ -25,7 +25,7 @@ public class Fairy extends Bad{
 		this.dead = true;
 	}
 		else{
-		this.x++;
+		this.x += 0.25;
 		y += 7 * Math.cos(0.2*x);
 	}
 	}
@@ -35,7 +35,7 @@ public class Fairy extends Bad{
 	
 	public void draw(Graphics2D g){
 		g.setColor(thiscolor);
-		g.fillOval((int)(this.x)-r, (int)(this.y)-r, 2*r, 2*r);
+		g.fillRect((int)this.x - 20, (int)this.y -10, 40, 20);
 	
 	//for every shottype add a shottimer w/ system.nanotime
 	
