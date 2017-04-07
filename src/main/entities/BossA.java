@@ -1,6 +1,8 @@
 package main.entities;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 import main.engine.GamePanel;
 import main.engine.GamePanel.GameState;
@@ -11,7 +13,7 @@ public class BossA extends Bad{
 		x = 200;
 		y = 200;
 		rank = type.BOSS;
-		r = 4;
+		r = 8;
 		
 		secondStage = false;
 		
@@ -99,5 +101,18 @@ public class BossA extends Bad{
 					}
 			}
 		}
+	public void draw(Graphics2D g){
+		g.setColor(thiscolor);
+		g.fillOval((int)(x)-r, (int)(y)-r, 2*r, 2*r);
 		
+		g.setStroke(new BasicStroke(3));
+		g.setStroke(new BasicStroke(1));
+		g.setColor(Color.ORANGE);
+		long a = (350*this.getCurrHealth()/this.getStartHealth());
+		g.fillRect(10, 10, (int)a, 10);
+		g.setColor(Color.RED);
+		g.fillRect((10+(350*80/180)), 10, 4, 10);
+			
+	}
+	
 	}

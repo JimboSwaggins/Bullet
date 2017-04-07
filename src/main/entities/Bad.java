@@ -1,6 +1,5 @@
 package main.entities;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Random;
@@ -124,10 +123,6 @@ public abstract class Bad {
 	}
 	
 	public void draw(Graphics2D g){
-		g.setColor(thiscolor);
-		g.fillOval((int)(x)-r, (int)(y)-r, 2*r, 2*r);
 		
-		g.setStroke(new BasicStroke(3));
-		g.setStroke(new BasicStroke(1));
 	}
 }

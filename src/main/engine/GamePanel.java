@@ -347,7 +347,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				eList.get(i).draw(g);
 			}
 			lilly.draw(g);
+<<<<<<< HEAD
 		default:
+=======
+>>>>>>> master
 			break;
 		case PAUSE:
 			g.drawString("paused", 1, 1);
@@ -362,7 +365,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			if(score > 2500&&score < 4999){howgood = "A";};
 			if(score > 5000&&score < 7499){howgood = "S";};
 			if(score > 7500&&score < 9999){howgood = "SS";};
-			if(score > 10000){howgood = "Bradley_Gore";};
+			if(score > 10000){howgood = "SSS";};
 			g.drawString(howgood, 150, 220);
 			break;
 		}
