@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import main.entities.Bad;
 import main.entities.BossA;
+import main.entities.Fairy;
 import main.entities.Player;
 import main.entities.Talis;
 import main.entities.eTalis;
@@ -352,6 +353,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				eList.get(i).draw(g);
 			}
 			lilly.draw(g);
+		default:
 			break;
 		case PAUSE:
 			g.drawString("paused", 1, 1);
