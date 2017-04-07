@@ -31,8 +31,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	public static long pauseStart;
 	
-	public static long paraTimer;
-	public static long getPTimer(){
+	public static double paraTimer;
+	public static double getPTimer(){
 		return paraTimer;
 	}
 	
@@ -282,7 +282,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				}
 			}
 			for(int k = 0; k < eShot.size(); k++){
-					paraTimer++;
+					
 					eTalis c = 	eShot.get(k);
 					double px = c.getX();
 					double py = c.getY();
@@ -375,6 +375,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g.setColor(Color.WHITE);
 		g.drawString("Score: " + Integer.toString((int)score), 450, 20);
 		g.drawString("Graze:" + Integer.toString((int)graze), 450, 45);
+		g.drawString("Ptim" + Double.toString(paraTimer), 450, 60);
 		
 	}
 	

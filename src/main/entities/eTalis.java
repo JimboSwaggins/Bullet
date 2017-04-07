@@ -4,19 +4,19 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class eTalis {
-	private double x;
-	private double y;
+	protected double x;
+	protected double y;
 	
-	private int r;
+	protected int r;
 	
-	private double dx;
-	private double dy;
+	protected double dx;
+	protected double dy;
 	
 	@SuppressWarnings("unused")
-	private double speed;
-	private double rad;
+	protected double speed;
+	protected double rad;
 	
-	private Color color1;
+	protected Color color1;
 	
 	public double getX(){return x;}
 	public double getY(){return y;}
@@ -75,7 +75,5 @@ public class eTalis {
 		g.setColor(color1);
 		g.fillOval((int)(x-r), (int)(y-r), 2*r, 2*r);
 	}
-	
-	
-	
+
 }
