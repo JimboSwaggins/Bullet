@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.util.Random;
 
 import main.engine.GamePanel.GameState;
+import main.entities.*;
 
 public class Bad {
 	private double x;
@@ -217,7 +218,7 @@ public class Bad {
 	//Multiple Angle Targeted Shot Constructor
 	private void targeted (int amount, double change, double speed, int radius, Color COLOR, Player player){
 		double start = (amount * change)/2;
-		float angle = (float) Math.toDegrees(Math.atan2(player.y - y, player.x - x));
+		float angle = (float) Math.toDegrees(Math.atan2(player.getY() - y, player.getX() - x));
 		rot = 0;
 	    if(angle < 0){
 	        angle += 360;
@@ -230,7 +231,7 @@ public class Bad {
 	//Single Targeted Shot Constructor
 	private void targeted (double speed, int radius, Color COLOR, Player player){
 		rot = 0;
-		float angle = (float) Math.toDegrees(Math.atan2(player.y - y, player.x - x));
+		float angle = (float) Math.toDegrees(Math.atan2(player.getY() - y, player.getX() - x));
 		GamePanel.eShot.add(new eTalis(angle, x, y, speed, radius, COLOR));
 	}
 	
@@ -240,7 +241,7 @@ public class Bad {
 		rot = 0;
 		for(int i = 0; i < amount; i++){
 			Random rand = new Random();
-			float angle = (float) Math.toDegrees(Math.atan2(player.y - y, player.x - x));
+			float angle = (float) Math.toDegrees(Math.atan2(player.getY() - y, player.getX() - x));
 			GamePanel.eShot.add(new eTalis((rand.nextInt(range - 0) + (angle - (range / 2))), x, y, (rand.nextInt(variance + 1) + 1) + 1, radius, COLOR));
 		}
 	}
