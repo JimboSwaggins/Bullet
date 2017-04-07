@@ -19,7 +19,6 @@ public class BossA extends Bad{
 		
 		health = 180;
 		startHealth = 180;
-		firing = false;
 		shotTimer1 = System.nanoTime();
 		shotTimer2 = System.nanoTime();
 		shotTimer3 = System.nanoTime();
@@ -72,12 +71,6 @@ public class BossA extends Bad{
 	
 	public void update(Player player){
 		movPat();
-
-		firing = true;
-		if(firing && GamePanel.getState() == GameState.PAUSE){
-				
-		}
-		if(firing && GamePanel.getState() != GameState.PAUSE){
 			long bShot1T = (System.nanoTime() - shotTimer1 - GamePanel.getPause()) / 1000000;
 				long bShot2T =  (System.nanoTime() - shotTimer2 - GamePanel.getPause()) / 1000000;
 				long bShot3T = (System.nanoTime() - shotTimer3 - GamePanel.getPause()) / 1000000;
@@ -99,7 +92,6 @@ public class BossA extends Bad{
 							shot3Reload = ((health+5)*10);
 						}
 					}
-			}
 		}
 	public void draw(Graphics2D g){
 		g.setColor(thiscolor);
