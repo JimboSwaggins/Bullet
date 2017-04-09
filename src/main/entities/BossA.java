@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import main.engine.GamePanel;
-import main.engine.GamePanel.GameState;
 
 public class BossA extends Bad{
 	
@@ -88,8 +87,8 @@ public class BossA extends Bad{
 					if(secondStage == true){
 						if(bShot3T > shot3Reload){
 							blast(10, 70, 3, 3, 3, Color.RED, player);
-							shotTimer3 = System.nanoTime();
-							shot3Reload = ((health+5)*10);
+							shotTimer2 = System.nanoTime();
+							shot2Reload = ((health+5)*10);
 						}
 					}
 		}

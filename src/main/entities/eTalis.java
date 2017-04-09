@@ -12,7 +12,6 @@ public class eTalis {
 	protected double dx;
 	protected double dy;
 	
-	@SuppressWarnings("unused")
 	protected double speed;
 	protected double rad;
 	
@@ -57,7 +56,6 @@ public class eTalis {
 		
 		color1 = COLOR;
 	}
-	
 	public boolean update(){
 		x += dx;
 		y += dy;

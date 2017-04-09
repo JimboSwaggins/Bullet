@@ -25,9 +25,9 @@ public class Fairy extends Bad{
 		this.dead = true;
 	}
 		else{
-		this.x++;
-		y += 7 * Math.cos(0.2*x);
-	}
+			this.x++;
+			y += 0.7;
+		}
 	}
 	public void update(Player player){
 		movPat();

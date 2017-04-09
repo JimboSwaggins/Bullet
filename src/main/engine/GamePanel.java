@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 
 import main.entities.Bad;
 import main.entities.BossA;
-import main.entities.Fairy;
 import main.entities.Player;
 import main.entities.Talis;
 import main.entities.eTalis;
@@ -56,8 +55,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	private static GameState state;
-	//public static BossA joo;
-	public static Fairy joo;
+	public static BossA joo;
+	//public static Fairy joo;
 
 	public static Player lilly;
 	public static ArrayList<Talis> shots;
@@ -77,8 +76,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
 		eList = new ArrayList<Bad>();
-		//joo = new BossA();
-		joo = new Fairy(0, 40);
+		joo = new BossA();
+		//joo = new Fairy(0, 40);
 		eList.add(joo);
 	}
 	
@@ -199,7 +198,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		while(running){
 			
 			startTime = System.nanoTime();
-			
+			paraTimer += 0.1;
 			gameUpdate();
 			gameRender();
 			gameDraw();
@@ -236,7 +235,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				eList.get(i).update(lilly);
 				if(eList.get(i).isDead()){
 					eList.remove(i);
-					score += 500;
 					i--;
 				}
 				
@@ -364,13 +362,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			g.drawString("Your score was:" + Double.toString((int)score), 150, 200);
 			String howgood = null;
 			if(score < 0){howgood = "F";};
-			if(score > 0&&score < 499){howgood = "D";};
-			if(score > 500&&score < 1000){howgood = "C";};
-			if(score > 1001&&score < 2499){howgood = "B";};
-			if(score > 2500&&score < 4999){howgood = "A";};
-			if(score > 5000&&score < 7499){howgood = "S";};
-			if(score > 7500&&score < 9999){howgood = "SS";};
-			if(score > 10000){howgood = "SSS";};
+			if(score >= 0&&score < 499){howgood = "D";};
+			if(score >= 500&&score < 1000){howgood = "C";};
+			if(score >= 1001&&score < 2499){howgood = "B";};
+			if(score >= 2500&&score < 4999){howgood = "A";};
+			if(score >= 5000&&score < 7499){howgood = "S";};
+			if(score >= 7500&&score < 9999){howgood = "SS";};
+			if(score >= 10000){howgood = "SSS";};
 			g.drawString(howgood, 150, 220);
 			break;
 		}
