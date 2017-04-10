@@ -10,15 +10,20 @@ public class pTalis extends eTalis{
 	private double t;
 	private double sty;
 	private Bad creator;
-	public pTalis(int angle, double x, double y, double speed, int radius, Color COLOR, Bad creator) {
+	private long lifespan;
+	public pTalis(int angle, double x, double y, double speed, int radius, Color COLOR, Bad creator, long lifespan) {
 		super(angle, x, y, speed, radius, COLOR);
 		stx = creator.getX();
 		sty = creator.getY();
 		this.creator = creator;
+		this.lifespan = System.nanoTime() + (lifespan * 1000000);
+		
 	}
 	
 	public boolean update(){
-		this.t += 0.01;
+		if(this.lifespan >= System.nanoTime()){
+			this.t += 0.01;
+		}
 		stx = creator.getX();
 		stx = creator.getX();
 		sty = creator.getY();

@@ -70,9 +70,9 @@ public class BossA extends Bad{
 	
 	public void update(Player player){
 		movPat();
-			long bShot1T = (System.nanoTime() - shotTimer1 - GamePanel.getPause()) / 1000000;
-				long bShot2T =  (System.nanoTime() - shotTimer2 - GamePanel.getPause()) / 1000000;
-				long bShot3T = (System.nanoTime() - shotTimer3 - GamePanel.getPause()) / 1000000;
+			long bShot1T = (System.nanoTime() - shotTimer1) / 1000000;
+				long bShot2T =  (System.nanoTime() - shotTimer2) / 1000000;
+				long bShot3T = (System.nanoTime() - shotTimer3) / 1000000;
 				if(secondStage == false&&health > 80){
 					if(bShot1T > shot1Reload&&top&&y<300){
 						spiral(36, 0, 10, 1, 6, Color.RED, 6);

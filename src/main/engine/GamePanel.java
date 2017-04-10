@@ -29,12 +29,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private BufferedImage image;
 	private Graphics2D g;
 	
-	public static long pauseStart;
-	
-	public static double paraTimer;
-	public static double getPTimer(){
-		return paraTimer;
-	}
 	
 	public static double score;
 	public static double graze;
@@ -47,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	public enum GameState{
-		START, PLAY, END, PAUSE
+		START, PLAY, END
 	}
 	
 	public static GameState getState(){
@@ -81,19 +75,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		eList.add(joo);
 	}
 	
-	public static long getPause(){
-		return pauseStart;
-	}
-	
 	@Override
 	public void keyPressed(KeyEvent Key) {
 		int keyCode = Key.getKeyCode();
 		switch(state){
 		case PLAY:
-			if(keyCode == KeyEvent.VK_P){
-				state = GameState.PAUSE;
-				pauseStart = System.nanoTime();
-			}
 			if(keyCode == KeyEvent.VK_LEFT){
 				lilly.setLeft(true);
 			}
@@ -116,15 +102,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			break;
 		case END:
 			break;
-		case PAUSE:
-			if(keyCode == KeyEvent.VK_P){
-				state = GameState.PLAY;
-			}
-			break;
 		case START:
 			if(keyCode == KeyEvent.VK_S){
 				state = GameState.PLAY;
-				pauseStart = 0;
 			}
 			break;
 		default:
@@ -198,7 +178,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		while(running){
 			
 			startTime = System.nanoTime();
-			paraTimer += 0.1;
 			gameUpdate();
 			gameRender();
 			gameDraw();
@@ -315,8 +294,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					}
 				}
 			break;
-		case PAUSE:
-			break;
 		case END:
 			break;
 		default:
@@ -353,10 +330,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				eList.get(i).draw(g);
 			}
 			lilly.draw(g);
-		default:
-			break;
-		case PAUSE:
-			g.drawString("paused", 1, 1);
 			break;
 		case END:
 			g.drawString("Your score was:" + Double.toString((int)score), 150, 200);
@@ -371,13 +344,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			if(score >= 10000){howgood = "SSS";};
 			g.drawString(howgood, 150, 220);
 			break;
+		default:
+			break;
 		}
 		g.setColor(Color.BLACK);
 		g.fillRect(400, 0, 200, 400);
 		g.setColor(Color.WHITE);
 		g.drawString("Score: " + Integer.toString((int)score), 450, 20);
 		g.drawString("Graze:" + Integer.toString((int)graze), 450, 45);
-		g.drawString("Ptim" + Double.toString(paraTimer), 450, 60);
 		
 	}
 	
