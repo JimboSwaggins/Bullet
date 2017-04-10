@@ -3,8 +3,6 @@ package main.entities;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import main.engine.GamePanel;
-
 public class pTalis extends eTalis{
 	private double stx;
 	private double t;
