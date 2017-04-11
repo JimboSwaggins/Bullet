@@ -49,6 +49,15 @@ public class Fairy extends Bad{
 				
 		}
 	}
+	
+	public void firingPat(){
+		switch(AI){
+		case RIGHT:
+		default:
+			break;
+		}
+	}
+	
 	public void update(Player player){
 		movPat();
 	}
