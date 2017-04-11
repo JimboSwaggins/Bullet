@@ -9,14 +9,14 @@ import main.engine.GamePanel;
 public class BossA extends Bad{
 	
 	public BossA(){
-		x = 200;
-		y = 200;
+		x = 400;
+		y = 400;
 		rank = type.BOSS;
 		r = 8;
 		
 		secondStage = false;
 		
-		health = 180;
+		health = 80;
 		startHealth = 180;
 		shotTimer1 = System.nanoTime();
 		shotTimer2 = System.nanoTime();
@@ -24,7 +24,7 @@ public class BossA extends Bad{
 		
 		shot1Reload = 200;
 		shot2Reload = 200;
-		shot3Reload = 500;
+		shot3Reload = 100;
 		
 		badTimer1 = System.nanoTime();
 		badShot1 = 300;
@@ -55,12 +55,12 @@ public class BossA extends Bad{
 			}
 		}
 		if(secondStage == true){
-			x += 0;
+			x +=0;
 			y +=0;
 		}
 		if(health <= 80 && secondStage == false){
 			health = 80;
-			goToPoint(200, 200);
+			goToPoint(400, 400);
 			for(int i = 0; i < GamePanel.eShot.size(); i++){
 				GamePanel.eShot.remove(i);
 				GamePanel.point();
@@ -74,21 +74,21 @@ public class BossA extends Bad{
 				long bShot2T =  (System.nanoTime() - shotTimer2) / 1000000;
 				long bShot3T = (System.nanoTime() - shotTimer3) / 1000000;
 				if(secondStage == false&&health > 80){
-					if(bShot1T > shot1Reload&&top&&y<300){
-						spiral(36, 0, 10, 1, 6, Color.RED, 6);
+					if(bShot1T > shot1Reload&&top&&y<600){
+						spiral(36, 1, 6, Color.RED, 6);
 							shotTimer1 = System.nanoTime();
 						}
 						
-						if(bShot2T > shot2Reload&&bottom&&y>50){
+						if(bShot2T > shot2Reload&&bottom&&y>100){
 							targeted(3, 25, 3, 6, Color.BLUE, player);
 							shotTimer2 = System.nanoTime();
 						}
 					}
 					if(secondStage == true){
 						if(bShot3T > shot3Reload){
-							blast(10, 70, 3, 3, 3, Color.RED, player);
-							shotTimer2 = System.nanoTime();
-							shot2Reload = ((health+5)*10);
+							spiral(71, 2, 6, Color.RED, 4);
+							spiral(19, 4, 10, Color.RED, -8.89);
+							shotTimer3 = System.nanoTime();
 						}
 					}
 		}
@@ -99,10 +99,10 @@ public class BossA extends Bad{
 		g.setStroke(new BasicStroke(3));
 		g.setStroke(new BasicStroke(1));
 		g.setColor(Color.ORANGE);
-		long a = (350*this.getCurrHealth()/this.getStartHealth());
-		g.fillRect(10, 10, (int)a, 10);
+		long a = (700*this.getCurrHealth()/this.getStartHealth());
+		g.fillRect(20, 20, (int)a, 20);
 		g.setColor(Color.RED);
-		g.fillRect((10+(350*80/180)), 10, 4, 10);
+		g.fillRect((20+(700*80/180)), 20, 8, 20);
 			
 	}
 	

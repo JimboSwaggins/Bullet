@@ -19,8 +19,8 @@ import main.entities.eTalis;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener{
-	public static int Width = 600;
-	public static int Height = 400;
+	public static int Width = 1200;
+	public static int Height = 800;
 	
 	private Thread thread;
 	
@@ -275,15 +275,27 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dx = px - ex;
 					double dy = py - ey;
 					double dist = Math.sqrt(dx*dx + dy*dy);
-			
-					if(dist < projRadius + playerRadius&&dist >= 2){
-						graze++;
-					}			
-					if(dist < projRadius/2){
-						score -= 150;
-						eShot.remove(k);
-						k--;
-						break;
+					if(projRadius > 2){
+						if(dist < projRadius + playerRadius&&dist >= 2){
+							graze++;
+						}			
+						if(dist < projRadius/2){
+							score -= 1500;
+							eShot.remove(k);
+							k--;
+							break;
+						}
+					}
+					else{
+						if(dist < projRadius + playerRadius&&dist >= 2){
+							graze++;
+						}			
+						if(dist < projRadius){
+							score -= 1500;
+							eShot.remove(k);
+							k--;
+							break;
+						}
 					}
 					if(eList.size() == 0){
 						for(int i = 0; i< eShot.size(); i++){
@@ -304,10 +316,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private void gameRender(){
 		
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, 400, 400);
+		g.fillRect(0, 0, 800, 800);
 		g.setColor(Color.BLACK);
 		
-		g.fillRect(400, 0, 600, 400);
+		g.fillRect(800, 0, 1200, 800);
 		
 		switch(state){
 		case START:
@@ -348,10 +360,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			break;
 		}
 		g.setColor(Color.BLACK);
-		g.fillRect(400, 0, 200, 400);
+		g.fillRect(800, 0, 400, 800);
 		g.setColor(Color.WHITE);
-		g.drawString("Score: " + Integer.toString((int)score), 450, 20);
-		g.drawString("Graze:" + Integer.toString((int)graze), 450, 45);
+		g.drawString("Score: " + Integer.toString((int)score), 900, 40);
+		g.drawString("Graze:" + Integer.toString((int)graze), 900, 90);
 		
 	}
 	

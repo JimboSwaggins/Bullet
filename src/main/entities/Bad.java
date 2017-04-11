@@ -83,10 +83,10 @@ public abstract class Bad {
 	}
 	
 	//Irregular Angle Spiral Shot Constructor
-	protected void spiral (int amount, double start, double change, double speed, int radius, Color COLOR, int rotChange){
+	protected void spiral (double amount, double speed, int radius, Color COLOR, double rotChange){
 		rot += rotChange;
 		for(int i = 0; i < amount; i++){
-			GamePanel.eShot.add(new eTalis(this.rot - (start + (change*i)), x, y, speed, radius, COLOR));
+			GamePanel.eShot.add(new eTalis(this.rot - ((360/amount) * i), x, y, speed, radius, COLOR));
 		}
 	}
 	

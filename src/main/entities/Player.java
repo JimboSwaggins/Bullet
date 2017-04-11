@@ -48,10 +48,10 @@ public class Player {
 	
 	public Player(){
 		rot = 270;
-		x = GamePanel.Width / 2;
-		y = GamePanel.Height / 2;
+		x = 400;
+		y = 400;
 		
-		r = 4;
+		r = 8;
 		
 		dx = 0;
 		dy = 0;
@@ -68,10 +68,10 @@ public class Player {
 	
 	public void update(){
 		if(focus){
-			speed = 1;
+			speed = 2;
 		}
 		else{
-			speed = 5;
+			speed = 10;
 			
 		}
 		
@@ -101,8 +101,8 @@ public class Player {
 		
 		if(x < r) x = r;
 		if(y < r) y = r;
-		if(x > 400 - r) x = 400 - r;
-		if(y > 400 - r) y = 400 - r;
+		if(x > 800 - r) x = 800 - r;
+		if(y > 800 - r) y = 800 - r;
 		
 		dx = 0;
 		dy = 0;
