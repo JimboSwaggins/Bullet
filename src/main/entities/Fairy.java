@@ -10,7 +10,7 @@ public class Fairy extends Bad{
 		this.y = y;
 		
 		rank = type.BADDIE;
-		r = 5;
+		r = 10;
 		this.AI = move;
 		shotTimer1 = System.nanoTime();
 		
@@ -22,7 +22,7 @@ public class Fairy extends Bad{
 		thiscolor = Color.gray;
 	}
 	
-	enum AI{
+	public enum AI{
 		DOWN, LEFT, RIGHT, UP, RQUAD, LQUAD
 	}
 	
@@ -44,6 +44,11 @@ public class Fairy extends Bad{
 		case RIGHT:
 			x--;
 			break;
+		case RQUAD:
+			x = 450 * Math.sin(y * 0.003) + 40;
+			y++;
+		case LQUAD:
+			Math.cos(x);
 		default:
 			break;
 				
