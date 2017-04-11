@@ -12,7 +12,7 @@ public class BossA extends Bad{
 		x = 400;
 		y = 400;
 		rank = type.BOSS;
-		r = 8;
+		r = 16;
 		
 		secondStage = false;
 		
@@ -24,7 +24,7 @@ public class BossA extends Bad{
 		
 		shot1Reload = 200;
 		shot2Reload = 200;
-		shot3Reload = 100;
+		shot3Reload = 200;
 		
 		badTimer1 = System.nanoTime();
 		badShot1 = 300;
@@ -86,8 +86,8 @@ public class BossA extends Bad{
 					}
 					if(secondStage == true){
 						if(bShot3T > shot3Reload){
-							spiral(71, 2, 6, Color.RED, 4);
-							spiral(19, 4, 10, Color.RED, -8.89);
+							spiral(12, 2, 6, Color.RED, 4);
+							spiral(12, 4, 10, Color.RED, -8.89);
 							shotTimer3 = System.nanoTime();
 						}
 					}
