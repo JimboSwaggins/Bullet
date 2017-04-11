@@ -50,11 +50,18 @@ public class Fairy extends Bad{
 		}
 	}
 	
-	public void firingPat(){
-		switch(AI){
-		case RIGHT:
-		default:
-			break;
+	public void firingPat(Player player){
+		long bShot1T = (System.nanoTime() - shotTimer1) / 1000000;
+		if(bShot1T > shot1Reload){
+			switch(AI){
+			case RIGHT:
+				targeted(3, 0, Color.RED, player);
+				break;
+			case LEFT:
+				targeted(3, 0, Color.RED, player);
+			default:
+				break;
+			}
 		}
 	}
 	
@@ -65,11 +72,6 @@ public class Fairy extends Bad{
 	public void draw(Graphics2D g){
 		g.setColor(thiscolor);
 		g.fillOval((int)(this.x)-r, (int)(this.y)-r, 2*r, 2*r);
-	
-	//for every shottype add a shottimer w/ system.nanotime
-	
-	
-	//should be square
 	}
 	
 	
