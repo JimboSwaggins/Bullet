@@ -105,5 +105,4 @@ public class BossA extends Bad{
 		g.fillRect((20+(700*80/180)), 20, 8, 20);
 			
 	}
-	
-	}
+}
