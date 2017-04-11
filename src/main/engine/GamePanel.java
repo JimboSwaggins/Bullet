@@ -75,7 +75,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		eShot = new ArrayList<eTalis>();
 		eList = new ArrayList<Bad>();
 		//joo = new BossA();
-		joo = new Fairy(200, 40, AI.RQUAD);
+		joo = new Fairy(200, 40, AI.RIGHT);
 		eList.add(joo);
 	}
 	
@@ -181,6 +181,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		
 		while(running){
 			
+			
 			startTime = System.nanoTime();
 			gameUpdate();
 			gameRender();
@@ -207,7 +208,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			
 		}
 	}
-	
+	public int i = 0;
 	private void gameUpdate(){
 		switch(state){
 		case START:

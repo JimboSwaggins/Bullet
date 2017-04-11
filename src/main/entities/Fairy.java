@@ -59,19 +59,21 @@ public class Fairy extends Bad{
 		long bShot1T = (System.nanoTime() - shotTimer1) / 1000000;
 		if(bShot1T > shot1Reload){
 			switch(AI){
-			case LQUAD:
-				targeted(3, 2, Color.RED, player);
+			case RIGHT:
+				targeted(3, 5, Color.RED, player);
 				break;
 			case RQUAD:
-				targeted(3, 2, Color.RED, player);
+				targeted(3, 5, Color.RED, player);
 			default:
 				break;
 			}
+			shotTimer1 = System.nanoTime();
 		}
 	}
 	
 	public void update(Player player){
 		movPat();
+		firingPat(player);
 	}
 	
 	public void draw(Graphics2D g){
