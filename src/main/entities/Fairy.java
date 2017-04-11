@@ -4,13 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Fairy extends Bad{
-	public Fairy(int x, int y){
+	private AI AI;
+	public Fairy(int x, int y, AI move){
 		this.x = x;
 		this.y = y;
 		
 		rank = type.BADDIE;
 		r = 5;
-		
+		this.AI = move;
 		shotTimer1 = System.nanoTime();
 		
 		health = 20;
@@ -20,13 +21,32 @@ public class Fairy extends Bad{
 		
 		thiscolor = Color.gray;
 	}
+	
+	enum AI{
+		DOWN, LEFT, RIGHT, UP, RQUAD, LQUAD
+	}
+	
+	
 	public void movPat(){
-	if(x > 400 || y > 400){
+	if(x > 800 || y > 800){
 		this.dead = true;
 	}
-		else{
-			this.x++;
-			y += 0.7;
+		switch(AI){
+		case UP:
+			y--;
+			break;
+		case DOWN:
+			y++;
+			break;
+		case LEFT:
+			x++;
+			break;
+		case RIGHT:
+			x--;
+			break;
+		default:
+			break;
+				
 		}
 	}
 	public void update(Player player){

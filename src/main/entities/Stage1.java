@@ -1,7 +1,7 @@
 package main.entities;
 
 public class Stage1 {
-	private NIGGER systemTime();
+	private long systemTime;
 	
 	public void begin(long whatTime){
 		
