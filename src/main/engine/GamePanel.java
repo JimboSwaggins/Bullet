@@ -220,6 +220,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			break;
 		case PLAY:
 			lilly.update();
+			
+			//You
 			for(int i = 0; i < eList.size(); i++){
 				eList.get(i).update(lilly);
 				if(eList.get(i).isDead()){
@@ -228,6 +230,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				}
 				
 			}
+			
+			//Your shots
 			for(int i = 0; i < shots.size(); i++){
 				boolean remove = shots.get(i).update();
 				if(remove){
@@ -236,6 +240,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					
 				}
 			}
+			
+			//Enemy Shots
 			for(int j = 0; j < eShot.size(); j++){
 				boolean remove = eShot.get(j).update();
 				if(remove){
@@ -245,6 +251,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				}
 			}
 			
+			//Hit Detection
 			for(int i = 0; i < shots.size(); i++){
 				Talis b = shots.get(i);
 				double bx = b.getX();
@@ -271,6 +278,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					state = GameState.END;
 				}
 			}
+			
+			//Enemy Bullet Hit Detection
 			for(int k = 0; k < eShot.size(); k++){
 					
 					eTalis c = 	eShot.get(k);
@@ -307,10 +316,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 							break;
 						}
 					}
+					
+					//Clears screen after enemies die
 					if(eList.size() == 0){
 						for(int i = 0; i< eShot.size(); i++){
 							eShot.remove(i);
-							score += (1 + (0.1 * graze));
+							score += (1 + (0.001 * graze));
 							i--;
 						}
 					}
