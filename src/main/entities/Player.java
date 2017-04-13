@@ -20,6 +20,8 @@ public class Player {
 	private int dy;
 	private int speed;
 	
+	private int lives;
+	
 	private boolean left;
 	private boolean right;
 	private boolean up;
@@ -30,6 +32,12 @@ public class Player {
 	private boolean firing;
 	private long firingTimer;
 	private long firingDelay;
+	
+	//Bombs
+	private int bombs;
+	public int getBombs(){return this.bombs;}
+	public void setBombs(int Bombs){this.bombs +=  Bombs;}
+	
 	
 	private Color color1;
 	public void setLeft(boolean a){this.left = a;}
@@ -49,15 +57,15 @@ public class Player {
 	public Player(){
 		rot = 270;
 		x = 400;
-		y = 400;
-		
+		y = 800;
+		lives = 999;
 		r = 8;
 		
 		dx = 0;
 		dy = 0;
 		speed = 5;
 		
-		
+		bombs = 3;
 		rotSpeed = 7;
 		firing = false;
 		firingTimer = System.nanoTime();
@@ -119,6 +127,22 @@ public class Player {
 
 	}
 	
+	public void useBomb(){
+		if(this.bombs > 0){
+			for(int i = 0; i < GamePanel.eList.size(); i++){
+				GamePanel.eList.get(i).hit(100);
+			}
+			for(int i = 0; i < GamePanel.eShot.size(); i++){
+				GamePanel.eShot.clear();
+			}
+			bombs--;
+			new memeSpiral(this);
+		}
+		else{
+			System.out.println("LOL NOP");
+		}
+	}
+	
 	private void spiral (int amount, double start, double change, double speed, int radius, Color COLOR){
 		for(int i = 0; i < amount; i++){
 			GamePanel.shots.add(new Talis(this.rot - (start + (change*i)), x, y, speed, radius, COLOR));
@@ -131,6 +155,14 @@ public class Player {
 		
 		g.setStroke(new BasicStroke(3));
 		g.setStroke(new BasicStroke(1));
+	}
+	
+	public void setLives(int lives){
+		this.lives = lives;
+	}
+	
+	public int getLives(){
+		return lives;
 	}
 
 	

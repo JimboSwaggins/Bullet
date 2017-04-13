@@ -70,6 +70,14 @@ public abstract class Bad {
 			this.y = y;
 		}
 	}
+	public void hit(int damage){
+		this.health -= damage;
+		if(health <= 0){
+			dead = true;
+			GamePanel.setScore(this.scoreValue);
+		}
+	}
+	
 	
 	public void hit(){
 		this.health--;
@@ -122,6 +130,10 @@ public abstract class Bad {
 			float angle = (float) Math.toDegrees(Math.atan2(player.y - y, player.x - x));
 			GamePanel.eShot.add(new eTalis((rand.nextInt(range - 0) + (angle - (range / 2))), x, y, (rand.nextInt(variance + 1) + 1) + 1, radius, COLOR));
 		}
+	}
+	
+	protected void parametric(int speed, int radius, Color COLOR, Bad BAD){
+		GamePanel.eShot.add(new pTalis(0, x, y, speed, radius, COLOR, BAD, 1));
 	}
 	
 	public void draw(Graphics2D g){

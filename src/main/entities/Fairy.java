@@ -5,16 +5,19 @@ import java.awt.Graphics2D;
 
 public class Fairy extends Bad{
 	private AI AI;
-	public Fairy(int x, int y, AI move){
+	private shotType pattern;
+	
+	public Fairy(int x, int y, AI move, shotType fpat){
 		this.x = x;
 		this.y = y;
 		
 		rank = type.BADDIE;
 		r = 10;
 		this.AI = move;
+		this.pattern = fpat;
 		shotTimer1 = System.nanoTime();
 		
-		health = 20;
+		health = 10;
 		shot1Reload = 400;
 		
 		this.scoreValue = 200;
@@ -25,6 +28,10 @@ public class Fairy extends Bad{
 	
 	public enum AI{
 		DOWN, LEFT, RIGHT, UP, RQUAD, LQUAD
+	}
+	
+	public enum shotType{
+		TARGET
 	}
 	
 	
@@ -59,20 +66,10 @@ public class Fairy extends Bad{
 	public void firingPat(Player player){
 		long bShot1T = (System.nanoTime() - shotTimer1) / 1000000;
 		if(bShot1T > shot1Reload){
-			switch(AI){
-			case RIGHT:
+			switch(pattern){
+			case TARGET:
 				targeted(3, 5, Color.RED, player);
 				break;
-			case LEFT:
-				break;
-			case UP:
-				break;
-			case DOWN:
-				break;
-			case LQUAD:
-				break;
-			case RQUAD:
-				targeted(3, 5, Color.RED, player);
 			default:
 				break;
 			}
