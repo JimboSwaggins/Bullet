@@ -124,6 +124,10 @@ public abstract class Bad {
 		}
 	}
 	
+	protected void parametric(int speed, int radius, Color COLOR, Bad BAD){
+		GamePanel.eShot.add(new pTalis(0, x, y, speed, radius, COLOR, BAD, 1));
+	}
+	
 	public void draw(Graphics2D g){
 		
 	}

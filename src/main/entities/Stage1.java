@@ -1,7 +1,9 @@
 package main.entities;
 
 public class Stage1 {
+	@SuppressWarnings("unused")
 	private long systemTime;
+	@SuppressWarnings("unused")
 	private long startTime;
 	
 	public Stage1(){
