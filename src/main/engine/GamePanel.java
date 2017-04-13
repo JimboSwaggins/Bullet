@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import main.entities.Bad;
-import main.entities.BossA;
 import main.entities.Player;
+import main.entities.Stage1;
 import main.entities.Talis;
 import main.entities.eTalis;
 
@@ -36,6 +36,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	@SuppressWarnings("unused")
 	private double averageFPS;
 	
+	private Stage1 stage;
+	
 	public static void point(){
 		score++;
 	}
@@ -52,9 +54,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	private static GameState state;
-
-	public static BossA joo;
-	//public static Fairy joo;
 	 
 	public String status = "Keep it Up";
 	
@@ -71,14 +70,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		requestFocus();
 		score = 0;
 		
+		
+		stage = new Stage1();
 		state = GameState.START;
 		lilly = new Player();
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
 		eList = new ArrayList<Bad>();
-		joo = new BossA();
-		//joo = new Fairy(200, 40, AI.RQUAD);
-		eList.add(joo);
 		
 	}
 	
@@ -221,6 +219,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		case START:
 			break;
 		case PLAY:
+			stage.begin();
 			lilly.update();
 			
 			//You
@@ -275,8 +274,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					break;
 				}
 			}
-			
-				if(eList.isEmpty()){
+				if(stage.begin()){
 					state = GameState.END;
 				}
 			}
