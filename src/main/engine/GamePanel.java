@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import main.entities.Bad;
-import main.entities.BossA;
+import main.entities.Fairy;
+import main.entities.Fairy.AI;
 import main.entities.Player;
 import main.entities.Talis;
 import main.entities.eTalis;
@@ -40,8 +41,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		score++;
 	}
 	
+	public static void setScore(int scoreplus){
+		score += scoreplus;
+	}
 	public enum GameState{
-		START, PLAY, END
+		START, PLAY, END, MENU
 	}
 	
 	public static GameState getState(){
@@ -49,9 +53,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	private static GameState state;
-	public static BossA joo;
-	//public static Fairy joo;
 
+	//public static BossA joo;
+	public static Fairy joo;
+
+	
 	public static Player lilly;
 	public static ArrayList<Talis> shots;
 	public static ArrayList<eTalis> eShot;
@@ -70,8 +76,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
 		eList = new ArrayList<Bad>();
-		joo = new BossA();
-		//joo = new Fairy(0, 40);
+		//joo = new BossA();
+		joo = new Fairy(200, 40, AI.RQUAD);
 		eList.add(joo);
 	}
 	
@@ -79,6 +85,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public void keyPressed(KeyEvent Key) {
 		int keyCode = Key.getKeyCode();
 		switch(state){
+		case MENU:
+			break;
 		case PLAY:
 			if(keyCode == KeyEvent.VK_LEFT){
 				lilly.setLeft(true);
@@ -177,6 +185,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		
 		while(running){
 			
+			
 			startTime = System.nanoTime();
 			gameUpdate();
 			gameRender();
@@ -203,9 +212,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			
 		}
 	}
-	
+	public int i = 0;
 	private void gameUpdate(){
 		switch(state){
+		case MENU:
+			break;
 		case START:
 			break;
 		case PLAY:
@@ -322,6 +333,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g.fillRect(800, 0, 1200, 800);
 		
 		switch(state){
+		case MENU:
+			g.drawString("Play", 50, 100);
+			g.drawString("Exit", 50, 120);
+			break;	
 		case START:
 			g.drawString("This is a game", 50, 100);
 			g.drawString("Press z to shoot", 50, 112);
