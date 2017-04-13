@@ -20,6 +20,8 @@ public class Player {
 	private int dy;
 	private int speed;
 	
+	private int lives;
+	
 	private boolean left;
 	private boolean right;
 	private boolean up;
@@ -49,8 +51,8 @@ public class Player {
 	public Player(){
 		rot = 270;
 		x = 400;
-		y = 400;
-		
+		y = 800;
+		lives = 3;
 		r = 8;
 		
 		dx = 0;
@@ -131,6 +133,14 @@ public class Player {
 		
 		g.setStroke(new BasicStroke(3));
 		g.setStroke(new BasicStroke(1));
+	}
+	
+	public void setLives(int lives){
+		this.lives = lives;
+	}
+	
+	public int getLives(){
+		return lives;
 	}
 
 	

@@ -55,7 +55,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 
 	public static BossA joo;
 	//public static Fairy joo;
-
+	 
+	public String status = "Keep it Up";
 	
 	public static Player lilly;
 	public static ArrayList<Talis> shots;
@@ -78,6 +79,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		joo = new BossA();
 		//joo = new Fairy(200, 40, AI.RQUAD);
 		eList.add(joo);
+		
 	}
 	
 	@Override
@@ -301,6 +303,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 						if(dist < projRadius/2){
 							score -= 1500;
 							eShot.remove(k);
+							takeLife();
 							k--;
 							break;
 						}
@@ -312,6 +315,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 						if(dist < projRadius){
 							score -= 1500;
 							eShot.remove(k);
+							takeLife();
 							k--;
 							break;
 						}
@@ -322,6 +326,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 						for(int i = 0; i< eShot.size(); i++){
 							eShot.remove(i);
 							score += (1 + (0.001 * graze));
+							score += (1 + (0.01 * graze));
 							i--;
 						}
 					}
@@ -334,6 +339,31 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
 	}
 
+	private void takeLife(){
+		
+		if(lilly.getLives() > 0){
+			lilly.setLives(lilly.getLives() - 1);
+		}
+		switch(lilly.getLives()){
+		case 0 :
+			GamePanel.state = GameState.END;
+			status = "dead xd";
+			break;
+			
+		case 1 :
+			status = "oh no";
+			break;
+			
+		case 2 :
+			status = "almost dead xd";
+			break;
+			
+		default:
+			break;
+		
+		}
+		
+	}
 	private void gameRender(){
 		
 		g.setColor(Color.WHITE);
@@ -389,6 +419,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g.setColor(Color.WHITE);
 		g.drawString("Score: " + Integer.toString((int)score), 900, 40);
 		g.drawString("Graze:" + Integer.toString((int)graze), 900, 90);
+		g.drawString("Lives: " + Integer.toString(lilly.getLives()), 900, 120);
+		g.drawString(status , 900, 140);
 		
 	}
 	
