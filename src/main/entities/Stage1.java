@@ -1,7 +1,6 @@
 package main.entities;
 
 public class Stage1 {
-
 	private long systemTime;
 	private long startTime;
 	
@@ -10,6 +9,6 @@ public class Stage1 {
 	}
 	
 	public void begin(long whatTime){
-		
+		systemTime = System.nanoTime();
 	}
 }
