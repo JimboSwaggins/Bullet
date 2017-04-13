@@ -9,6 +9,8 @@ public class Game {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setContentPane(new GamePanel());
 		window.pack();
+		window.setResizable(false);
+		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 	}
 }
