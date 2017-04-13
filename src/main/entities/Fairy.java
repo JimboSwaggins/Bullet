@@ -17,6 +17,7 @@ public class Fairy extends Bad{
 		health = 20;
 		shot1Reload = 400;
 		
+		this.scoreValue = 200;
 		dead = false;
 		
 		thiscolor = Color.gray;
@@ -48,7 +49,7 @@ public class Fairy extends Bad{
 			x = 450 * Math.sin(y * 0.003) + 40;
 			y++;
 		case LQUAD:
-			Math.cos(x);
+			x = 450 * Math.sin(y * 0.003) + 40;
 		default:
 			break;
 				
@@ -61,6 +62,14 @@ public class Fairy extends Bad{
 			switch(AI){
 			case RIGHT:
 				targeted(3, 5, Color.RED, player);
+				break;
+			case LEFT:
+				break;
+			case UP:
+				break;
+			case DOWN:
+				break;
+			case LQUAD:
 				break;
 			case RQUAD:
 				targeted(3, 5, Color.RED, player);

@@ -24,6 +24,7 @@ public abstract class Bad {
 	protected Color thiscolor;
 	protected boolean secondStage;
 	
+	protected int scoreValue;
 	
 	protected long badTimer1;
 	protected long badShot1;
@@ -74,6 +75,7 @@ public abstract class Bad {
 		this.health--;
 		if(health <= 0){
 			dead = true;
+			GamePanel.setScore(this.scoreValue);
 		}
 	}
 

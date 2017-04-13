@@ -26,6 +26,8 @@ public class BossA extends Bad{
 		shot2Reload = 200;
 		shot3Reload = 200;
 		
+		scoreValue = 1000;
+		
 		badTimer1 = System.nanoTime();
 		badShot1 = 300;
 		
