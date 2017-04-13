@@ -33,6 +33,12 @@ public class Player {
 	private long firingTimer;
 	private long firingDelay;
 	
+	//Bombs
+	private int bombs;
+	public int getBombs(){return this.bombs;}
+	public void setBombs(int Bombs){this.bombs +=  Bombs;}
+	
+	
 	private Color color1;
 	public void setLeft(boolean a){this.left = a;}
 	public void setRight(boolean a){this.right = a;}
@@ -59,7 +65,7 @@ public class Player {
 		dy = 0;
 		speed = 5;
 		
-		
+		bombs = 3;
 		rotSpeed = 7;
 		firing = false;
 		firingTimer = System.nanoTime();
@@ -119,6 +125,18 @@ public class Player {
 			}
 		}
 
+	}
+	
+	public void useBomb(){
+		if(this.bombs > 0){
+			for(int i = 0; i < GamePanel.eList.size(); i++){
+				GamePanel.eList.get(i).hit(100);
+			}
+			for(int i = 0; i < GamePanel.eShot.size(); i++){
+				GamePanel.eShot.clear();
+			}
+			bombs--;
+		}
 	}
 	
 	private void spiral (int amount, double start, double change, double speed, int radius, Color COLOR){

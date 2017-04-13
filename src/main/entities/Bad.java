@@ -70,6 +70,14 @@ public abstract class Bad {
 			this.y = y;
 		}
 	}
+	public void hit(int damage){
+		this.health -= damage;
+		if(health <= 0){
+			dead = true;
+			GamePanel.setScore(this.scoreValue);
+		}
+	}
+	
 	
 	public void hit(){
 		this.health--;
