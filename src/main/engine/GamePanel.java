@@ -71,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		score = 0;
 		
 		
+		
 		stage = new Stage1();
 		state = GameState.START;
 		lilly = new Player();
@@ -177,14 +178,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		int frameCount = 0;
 		int maxFrameCount = 60;
 		
+		int FPS = 60;
 		
 		long targetTime = 1000 / FPS;
 		
 		
 		
 		while(running){
-			
-			
 			startTime = System.nanoTime();
 			gameUpdate();
 			gameRender();
@@ -219,7 +219,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		case START:
 			break;
 		case PLAY:
-			stage.begin();
 			lilly.update();
 			
 			//You
@@ -268,15 +267,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				double dist = Math.sqrt(dx*dx + dy*dy);
 		
 				if(dist < br + er){
-					eList.get(j).hit();
+					eList.get(j).hit(5);
 					shots.remove(i);
 					i--;
 					break;
 				}
 			}
-				if(stage.begin()){
-					state = GameState.END;
-				}
 			}
 			
 			//Enemy Bullet Hit Detection
@@ -324,7 +320,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 						for(int i = 0; i< eShot.size(); i++){
 							eShot.remove(i);
 							score += (1 + (0.001 * graze));
-							score += (1 + (0.01 * graze));
 							i--;
 						}
 					}
