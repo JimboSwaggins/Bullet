@@ -27,7 +27,7 @@ public class Fairy extends Bad{
 	}
 	
 	public enum AI{
-		DOWN, LEFT, RIGHT, UP, RQUAD, LQUAD, CQUAD
+		DOWN, LEFT, RIGHT, UP, RQUAD, LQUAD, CQUAD, ASIN
 	}
 	
 	public enum shotType{
@@ -62,7 +62,11 @@ public class Fairy extends Bad{
 			break;
 		case CQUAD:
 			x++;
-			y = .00875*x*(x-600);
+			y = -.00612244*(x-50)*(x-750);
+			break;
+		case ASIN:
+			x++;
+			y= -600*Math.abs(Math.sin(x/31.83098862));
 			break;
 		default:
 			break;
