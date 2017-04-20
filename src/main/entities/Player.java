@@ -136,7 +136,6 @@ public class Player {
 				GamePanel.eShot.clear();
 			}
 			bombs--;
-			new memeSpiral(this);
 		}
 		else{
 			System.out.println("LOL NOP");
