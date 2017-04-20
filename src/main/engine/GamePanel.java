@@ -29,15 +29,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private BufferedImage image;
 	private Graphics2D g;
 	
-	
 	public static double score;
 	public static double graze;
+	@SuppressWarnings("unused")
 	private int FPS;
 	@SuppressWarnings("unused")
 	private double averageFPS;
-	
-	private Stage1 stage;
-	
+
+	private Stage1 meme;
 	public static void point(){
 		score++;
 	}
@@ -71,8 +70,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		score = 0;
 		
 		
-		
-		stage = new Stage1();
 		state = GameState.START;
 		lilly = new Player();
 		shots = new ArrayList<Talis>();
@@ -113,6 +110,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		case START:
 			if(keyCode == KeyEvent.VK_S){
 				state = GameState.PLAY;
+				meme = new Stage1();
 			}
 			break;
 		default:
@@ -188,8 +186,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			startTime = System.nanoTime();
 			gameUpdate();
 			gameRender();
-			gameDraw();
-			
+			gameDraw();			
 			URDTimeMillis = (System.nanoTime() - startTime)/1000000;
 			
 			waitTime = targetTime - URDTimeMillis;
@@ -220,7 +217,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			break;
 		case PLAY:
 			lilly.update();
-			
 			//You
 			for(int i = 0; i < eList.size(); i++){
 				eList.get(i).update(lilly);

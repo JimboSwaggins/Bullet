@@ -17,7 +17,7 @@ public class Fairy extends Bad{
 		this.pattern = fpat;
 		shotTimer1 = System.nanoTime();
 		
-		health = 10;
+		health = 100;
 		shot1Reload = 400;
 		
 		this.scoreValue = 200;
