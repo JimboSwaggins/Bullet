@@ -94,6 +94,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		int keyCode = Key.getKeyCode();
 		switch(state){
 		case MENU:
+			if(keyCode == KeyEvent.VK_LEFT){
+				if((Pointer - 1) >= 0){
+					Pointer--;
+				}
+			}
+			if(keyCode == KeyEvent.VK_RIGHT){
+				if((Pointer+1) < stageListing.length){
+					Pointer++;
+				}
+			}
 			break;
 		case PLAY:
 			if(keyCode == KeyEvent.VK_LEFT){
@@ -381,8 +391,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				if(i == Pointer&&!stageListing[i].contains(">")){
 					stageListing[i] = ">" + stageListing[i];
 				}
-				else{
-					stageListing[i].replaceAll(">", "");
+				if(i != Pointer&&stageListing[i].contains(">")){
+					stageListing[i] = stageListing[i].replaceFirst(">", "");
 				}
 			}
 			for(int i = 0; i < stageListing.length; i++){
