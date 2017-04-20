@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	@SuppressWarnings("unused")
 	private double averageFPS;
 
+	@SuppressWarnings("unused")
 	private Stage1 meme;
 	public static void point(){
 		score++;
@@ -60,6 +61,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static ArrayList<Talis> shots;
 	public static ArrayList<eTalis> eShot;
 	public static ArrayList<Bad> eList;
+
+	private static int Pointer;
+	
+	private static String[] stageListing;
 	
 	public GamePanel(){
 		super();
@@ -69,8 +74,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		requestFocus();
 		score = 0;
 		
-		
-		state = GameState.START;
+		stageListing = new String[3];
+
+		for(int i = 0; i < stageListing.length; i++){
+			stageListing[i] = ("Stage " + Integer.toString(i + 1));
+			System.out.println(stageListing[i]);
+		}
+		Pointer = 0;
+		state = GameState.MENU;
 		lilly = new Player();
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
@@ -365,6 +376,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		case MENU:
 			g.drawString("Play", 50, 100);
 			g.drawString("Exit", 50, 120);
+			
+			for(int i = 0; i < stageListing.length; i++){
+				if(i == Pointer&&!stageListing[i].contains(">")){
+					stageListing[i] = ">" + stageListing[i];
+				}
+				else{
+					stageListing[i].replaceAll(">", "");
+				}
+			}
+			for(int i = 0; i < stageListing.length; i++){
+				g.drawString(stageListing[i], 200 + (150*i), 400);
+			}
+			
 			break;	
 		case START:
 			g.drawString("This is a game", 50, 100);
