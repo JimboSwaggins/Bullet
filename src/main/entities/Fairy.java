@@ -66,7 +66,7 @@ public class Fairy extends Bad{
 			break;
 		case ASIN:
 			x++;
-			y= -600*Math.abs(Math.sin(x/31.83098862));
+			y += -10*(Math.sin(x/31.83098862));
 			break;
 		default:
 			break;

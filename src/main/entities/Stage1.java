@@ -21,7 +21,7 @@ public class Stage1 extends Stage{
 		stageTimer.schedule(meme, 1500, 500);
 		TimerTask three = fairySpawn(100, 700, Fairy.AI.LQUAD, Fairy.shotType.TARGET, 5);
 		stageTimer.schedule(three, 2000, 500);
-		TimerTask four = fairySpawn(0, 800, Fairy.AI.ASIN, Fairy.shotType.TARGET, 5);
+		TimerTask four = fairySpawn(0, 750, Fairy.AI.ASIN, Fairy.shotType.TARGET, 5);
 		stageTimer.schedule(four, 2000, 500);
 	}
 	
