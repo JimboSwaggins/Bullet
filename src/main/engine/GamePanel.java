@@ -12,9 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import main.entities.Bad;
-import main.entities.Fairy;
-import main.entities.Fairy.AI;
 import main.entities.Player;
+import main.entities.Stage1;
 import main.entities.Talis;
 import main.entities.eTalis;
 
@@ -30,13 +29,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private BufferedImage image;
 	private Graphics2D g;
 	
-	
 	public static double score;
 	public static double graze;
+	@SuppressWarnings("unused")
 	private int FPS;
 	@SuppressWarnings("unused")
 	private double averageFPS;
-	
+
+	private Stage1 meme;
 	public static void point(){
 		score++;
 	}
@@ -53,10 +53,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	private static GameState state;
-
-	//public static BossA joo;
-	public static Fairy joo;
-
+	 
+	public String status = "Keep it Up";
 	
 	public static Player lilly;
 	public static ArrayList<Talis> shots;
@@ -71,14 +69,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		requestFocus();
 		score = 0;
 		
+		
 		state = GameState.START;
 		lilly = new Player();
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
 		eList = new ArrayList<Bad>();
-		//joo = new BossA();
-		joo = new Fairy(200, 40, AI.RQUAD);
-		eList.add(joo);
+		
 	}
 	
 	@Override
@@ -113,6 +110,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		case START:
 			if(keyCode == KeyEvent.VK_S){
 				state = GameState.PLAY;
+				meme = new Stage1();
 			}
 			break;
 		default:
@@ -178,19 +176,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		int frameCount = 0;
 		int maxFrameCount = 60;
 		
+		int FPS = 60;
 		
 		long targetTime = 1000 / FPS;
 		
 		
 		
 		while(running){
-			
-			
 			startTime = System.nanoTime();
 			gameUpdate();
 			gameRender();
-			gameDraw();
-			
+			gameDraw();			
 			URDTimeMillis = (System.nanoTime() - startTime)/1000000;
 			
 			waitTime = targetTime - URDTimeMillis;
@@ -221,6 +217,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			break;
 		case PLAY:
 			lilly.update();
+			//You
 			for(int i = 0; i < eList.size(); i++){
 				eList.get(i).update(lilly);
 				if(eList.get(i).isDead()){
@@ -229,6 +226,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				}
 				
 			}
+			
+			//Your shots
 			for(int i = 0; i < shots.size(); i++){
 				boolean remove = shots.get(i).update();
 				if(remove){
@@ -237,6 +236,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					
 				}
 			}
+			
+			//Enemy Shots
 			for(int j = 0; j < eShot.size(); j++){
 				boolean remove = eShot.get(j).update();
 				if(remove){
@@ -246,6 +247,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				}
 			}
 			
+			//Hit Detection
 			for(int i = 0; i < shots.size(); i++){
 				Talis b = shots.get(i);
 				double bx = b.getX();
@@ -261,17 +263,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				double dist = Math.sqrt(dx*dx + dy*dy);
 		
 				if(dist < br + er){
-					eList.get(j).hit();
+					eList.get(j).hit(5);
 					shots.remove(i);
 					i--;
 					break;
 				}
 			}
-			
-				if(eList.isEmpty()){
-					state = GameState.END;
-				}
 			}
+			
+			//Enemy Bullet Hit Detection
 			for(int k = 0; k < eShot.size(); k++){
 					
 					eTalis c = 	eShot.get(k);
@@ -293,6 +293,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 						if(dist < projRadius/2){
 							score -= 1500;
 							eShot.remove(k);
+							takeLife();
 							k--;
 							break;
 						}
@@ -304,14 +305,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 						if(dist < projRadius){
 							score -= 1500;
 							eShot.remove(k);
+							takeLife();
 							k--;
 							break;
 						}
 					}
+					
+					//Clears screen after enemies die
 					if(eList.size() == 0){
 						for(int i = 0; i< eShot.size(); i++){
 							eShot.remove(i);
-							score += (1 + (0.1 * graze));
+							score += (1 + (0.001 * graze));
 							i--;
 						}
 					}
@@ -324,6 +328,31 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
 	}
 
+	private void takeLife(){
+		
+		if(lilly.getLives() > 0){
+			lilly.setLives(lilly.getLives() - 1);
+		}
+		switch(lilly.getLives()){
+		case 0 :
+			GamePanel.state = GameState.END;
+			status = "dead xd";
+			break;
+			
+		case 1 :
+			status = "oh no";
+			break;
+			
+		case 2 :
+			status = "almost dead xd";
+			break;
+			
+		default:
+			break;
+		
+		}
+		
+	}
 	private void gameRender(){
 		
 		g.setColor(Color.WHITE);
@@ -379,6 +408,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g.setColor(Color.WHITE);
 		g.drawString("Score: " + Integer.toString((int)score), 900, 40);
 		g.drawString("Graze:" + Integer.toString((int)graze), 900, 90);
+		g.drawString("Lives: " + Integer.toString(lilly.getLives()), 900, 120);
+		g.drawString(status , 900, 140);
 		
 	}
 	

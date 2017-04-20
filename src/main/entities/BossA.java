@@ -16,7 +16,7 @@ public class BossA extends Bad{
 		
 		secondStage = false;
 		
-		health = 80;
+		health = 180;
 		startHealth = 180;
 		shotTimer1 = System.nanoTime();
 		shotTimer2 = System.nanoTime();
