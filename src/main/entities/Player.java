@@ -1,8 +1,10 @@
-package main.engine;
+package main.entities;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+
+import main.engine.GamePanel;
 
 public class Player {
 
@@ -18,6 +20,8 @@ public class Player {
 	private int dy;
 	private int speed;
 	
+	private int lives;
+	
 	private boolean left;
 	private boolean right;
 	private boolean up;
@@ -28,6 +32,12 @@ public class Player {
 	private boolean firing;
 	private long firingTimer;
 	private long firingDelay;
+	
+	//Bombs
+	private int bombs;
+	public int getBombs(){return this.bombs;}
+	public void setBombs(int Bombs){this.bombs +=  Bombs;}
+	
 	
 	private Color color1;
 	public void setLeft(boolean a){this.left = a;}
@@ -43,18 +53,19 @@ public class Player {
 	public int getR(){return r;}
 	
 	
+	
 	public Player(){
 		rot = 270;
-		x = GamePanel.Width / 2;
-		y = GamePanel.Height / 2;
-		
-		r = 4;
+		x = 400;
+		y = 800;
+    lives = 9999;
+		r = 8;
 		
 		dx = 0;
 		dy = 0;
 		speed = 5;
 		
-		
+		bombs = 3;
 		rotSpeed = 7;
 		firing = false;
 		firingTimer = System.nanoTime();
@@ -65,10 +76,10 @@ public class Player {
 	
 	public void update(){
 		if(focus){
-			speed = 1;
+			speed = 2;
 		}
 		else{
-			speed = 5;
+			speed = 10;
 			
 		}
 		
@@ -98,8 +109,8 @@ public class Player {
 		
 		if(x < r) x = r;
 		if(y < r) y = r;
-		if(x > GamePanel.Width - r) x = GamePanel.Width - r;
-		if(y > GamePanel.Height - r) y = GamePanel.Height - r;
+		if(x > 800 - r) x = 800 - r;
+		if(y > 800 - r) y = 800 - r;
 		
 		dx = 0;
 		dy = 0;
@@ -113,7 +124,23 @@ public class Player {
 				
 			}
 		}
-		
+
+	}
+	
+	public void useBomb(){
+		if(this.bombs > 0){
+			for(int i = 0; i < GamePanel.eList.size(); i++){
+				GamePanel.eList.get(i).hit(100);
+			}
+			for(int i = 0; i < GamePanel.eShot.size(); i++){
+				GamePanel.eShot.clear();
+			}
+			bombs--;
+			new memeSpiral(this);
+		}
+		else{
+			System.out.println("LOL NOP");
+		}
 	}
 	
 	private void spiral (int amount, double start, double change, double speed, int radius, Color COLOR){
@@ -128,6 +155,14 @@ public class Player {
 		
 		g.setStroke(new BasicStroke(3));
 		g.setStroke(new BasicStroke(1));
+	}
+	
+	public void setLives(int lives){
+		this.lives = lives;
+	}
+	
+	public int getLives(){
+		return lives;
 	}
 
 	

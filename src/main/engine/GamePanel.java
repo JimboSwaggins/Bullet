@@ -11,12 +11,16 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import main.engine.tracker.type;
+import main.entities.Bad;
+import main.entities.Player;
+import main.entities.Stage1;
+import main.entities.Talis;
+import main.entities.eTalis;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener{
-	public static int Width = 400;
-	public static int Height = 400;
+	public static int Width = 1200;
+	public static int Height = 800;
 	
 	private Thread thread;
 	
@@ -25,27 +29,43 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private BufferedImage image;
 	private Graphics2D g;
 	
-	public static int score;
+	public static double score;
+	public static double graze;
 	private int FPS;
 	@SuppressWarnings("unused")
 	private double averageFPS;
-	
+
+	@SuppressWarnings("unused")
+	private Stage1 meme;
 	public static void point(){
 		score++;
 	}
-	public static tracker joo;
-
+	
+	public static void setScore(int scoreplus){
+		score += scoreplus;
+	}
+	public enum GameState{
+		START, PLAY, END, MENU
+	}
+	
+	public static GameState getState(){
+		return state;
+	}
+	
+	private static GameState state;
+	 
+	public String status = "Keep it Up";
+	
 	public static Player lilly;
 	public static ArrayList<Talis> shots;
 	public static ArrayList<eTalis> eShot;
-	public static ArrayList<tracker> eList;
+	public static ArrayList<Bad> eList;
 	
 	public enum gameState{
 		START, RUN, END
 	}
 	
 	public GamePanel(){
-		
 		super();
 		FPS = 60;
 		setPreferredSize(new Dimension(Width, Height));
@@ -53,36 +73,52 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		requestFocus();
 		score = 0;
 		
+		
+		state = GameState.START;
 		lilly = new Player();
 		shots = new ArrayList<Talis>();
 		eShot = new ArrayList<eTalis>();
-		eList = new ArrayList<tracker>();
-		joo = new tracker(200, 10, type.BOSS);
-		eList.add(joo);
+		eList = new ArrayList<Bad>();
+		
 	}
-	
 	
 	@Override
 	public void keyPressed(KeyEvent Key) {
 		int keyCode = Key.getKeyCode();
-		if(keyCode == KeyEvent.VK_LEFT){
-			lilly.setLeft(true);
-		}
-		if(keyCode == KeyEvent.VK_RIGHT){
-			lilly.setRight(true);
-		}
-		if(keyCode == KeyEvent.VK_UP){
-			lilly.setUp(true);
-		}
-		if(keyCode == KeyEvent.VK_DOWN){
-			lilly.setDown(true);
-		}
-		if(keyCode == KeyEvent.VK_SHIFT){
-			lilly.setFocus(true);
-			FPS = 1;
-		}
-		if(keyCode == KeyEvent.VK_Z){
-			lilly.setFiring(true);
+		switch(state){
+		case MENU:
+			break;
+		case PLAY:
+			if(keyCode == KeyEvent.VK_LEFT){
+				lilly.setLeft(true);
+			}
+			if(keyCode == KeyEvent.VK_RIGHT){
+				lilly.setRight(true);
+			}
+			if(keyCode == KeyEvent.VK_UP){
+				lilly.setUp(true);
+			}
+			if(keyCode == KeyEvent.VK_DOWN){
+				lilly.setDown(true);
+			}
+			if(keyCode == KeyEvent.VK_SHIFT){
+				lilly.setFocus(true);
+			}
+			if(keyCode == KeyEvent.VK_Z){
+				lilly.setFiring(true);
+			}
+			break;
+		case END:
+			break;
+		case START:
+			if(keyCode == KeyEvent.VK_S){
+				state = GameState.PLAY;
+				meme = new Stage1();
+				takeLife();
+			}
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -103,7 +139,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
 		if(keyCode == KeyEvent.VK_SHIFT){
 			lilly.setFocus(false);
-			FPS = 60;
 		}
 		if(keyCode == KeyEvent.VK_Z){
 			lilly.setFiring(false);
@@ -145,18 +180,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		int maxFrameCount = 60;
 		
 		
+		
 		long targetTime = 1000 / FPS;
 		
 		
 		
 		while(running){
-			
 			startTime = System.nanoTime();
-			
 			gameUpdate();
 			gameRender();
-			gameDraw();
-			
+			gameDraw();			
 			URDTimeMillis = (System.nanoTime() - startTime)/1000000;
 			
 			waitTime = targetTime - URDTimeMillis;
@@ -178,112 +211,197 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			
 		}
 	}
-	
+	public int i = 0;
 	private void gameUpdate(){
-		
-		lilly.update();
-		
-		for(int i = 0; i < eList.size(); i++){
-			eList.get(i).update(lilly);
-			if(eList.get(i).isDead()){
-				eList.remove(i);
-				score += 500;
-				i--;
-			}
-			
-		}
-		for(int i = 0; i < shots.size(); i++){
-			boolean remove = shots.get(i).update();
-			if(remove){
-				shots.remove(i);
-				i--;
+		switch(state){
+		case MENU:
+			break;
+		case START:
+			break;
+		case PLAY:
+			lilly.update();
+			//You
+			for(int i = 0; i < eList.size(); i++){
+				eList.get(i).update(lilly);
+				if(eList.get(i).isDead()){
+					eList.remove(i);
+					i--;
+				}
 				
 			}
-		}
-		for(int j = 0; j < eShot.size(); j++){
-			boolean remove = eShot.get(j).update();
-			if(remove){
-				eShot.remove(j);
-				j--;
-				
+			
+			//Your shots
+			for(int i = 0; i < shots.size(); i++){
+				boolean remove = shots.get(i).update();
+				if(remove){
+					shots.remove(i);
+					i--;
+					
+				}
 			}
-		}
-		
-		for(int i = 0; i < shots.size(); i++){
-			Talis b = shots.get(i);
-			double bx = b.getX();
-			double by = b.getY();
-			double br = b.getR();
-			for(int j = 0; j < eList.size(); j++){
-			double ex = eList.get(j).getX();
-			double ey = eList.get(j).getY();
-			double er = eList.get(j).getR();
 			
-			double dx = bx - ex;
-			double dy = by - ey;
-			double dist = Math.sqrt(dx*dx + dy*dy);
-	
-			
-			if(dist < br + er){
-				eList.get(j).hit();
-				shots.remove(i);
-				i--;
-				break;
+			//Enemy Shots
+			for(int j = 0; j < eShot.size(); j++){
+				boolean remove = eShot.get(j).update();
+				if(remove){
+					eShot.remove(j);
+					j--;
+					
+					
+				}
 			}
-		}
 			
-		}
-		for(int k = 0; k < eShot.size(); k++){
-				eTalis c = 	eShot.get(k);
-				double px = c.getX();
-				double py = c.getY();
-				double projRadius = c.getR();
+			//Hit Detection
+			for(int i = 0; i < shots.size(); i++){
+				Talis b = shots.get(i);
+				double bx = b.getX();
+				double by = b.getY();
+				double br = b.getR();
+				for(int j = 0; j < eList.size(); j++){
+				double ex = eList.get(j).getX();
+				double ey = eList.get(j).getY();
+				double er = eList.get(j).getR();
 				
-				double ex = lilly.getX();
-				double ey = lilly.getY();
-				double playerRadius = lilly.getR();
-				
-				double dx = px - ex;
-				double dy = py - ey;
+				double dx = bx - ex;
+				double dy = by - ey;
 				double dist = Math.sqrt(dx*dx + dy*dy);
 		
-				if(dist < projRadius + playerRadius&&dist >= 2){
-					score++;
-				}			
-				if(dist < projRadius/2){
-					score -= 150;
-					eShot.remove(k);
-					k--;
+				if(dist < br + er){
+					eList.get(j).hit(5);
+					shots.remove(i);
+					i--;
 					break;
 				}
-				if(eList.size() == 0){
-					for(int i = 0; i< eShot.size(); i++){
-						eShot.remove(i);
-						score++;
-						i--;
+			}
+			}
+			
+			//Enemy Bullet Hit Detection
+			for(int k = 0; k < eShot.size(); k++){
+					
+					eTalis c = 	eShot.get(k);
+					double px = c.getX();
+					double py = c.getY();
+					double projRadius = c.getR();
+					
+					double ex = lilly.getX();
+					double ey = lilly.getY();
+					
+					double dx = px - ex;
+					double dy = py - ey;
+					double dist = Math.sqrt(dx*dx + dy*dy);
+					if(projRadius > 2){
+						if((int)dist < projRadius + 1&&dist > 2){
+							graze++;
+						}			
+						if((int)dist < projRadius){
+							if(graze - 50 < 0){
+								graze = 0;
+							}else{
+								graze -= 50;
+							}
+							eShot.remove(k);
+							takeLife();
+							k--;
+							break;
+						}
+					}
+					else{
+						if((int)dist < projRadius + 1&&dist > 2){
+							graze++;
+						}			
+						if((int)dist < projRadius){
+							if(graze - 50 < 0){
+								graze = 0;
+							}else{
+								graze -= 50;
+							}
+							eShot.remove(k);
+							takeLife();
+							k--;
+							break;
+						}
 					}
 				}
-			}
+			break;
+		case END:
+			break;
+		default:
+			break;
 		}
+	}
 
+	private void takeLife(){
+		
+		if(lilly.getLives() > 0){
+			lilly.setLives(lilly.getLives() - 1);
+		}
+		switch(lilly.getLives()){
+		case 0 :
+			GamePanel.state = GameState.END;
+			break;
+		default:
+			break;
+		}
+		
+	}
 	private void gameRender(){
+		
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, Width, Height);
+		g.fillRect(0, 0, 800, 800);
 		g.setColor(Color.BLACK);
 		
+		g.fillRect(800, 0, 1200, 800);
 		
-		for(int i = 0; i < shots.size(); i++){
-			shots.get(i).draw(g);
+		switch(state){
+		case MENU:
+			g.drawString("Play", 50, 100);
+			g.drawString("Exit", 50, 120);
+			break;	
+		case START:
+			g.drawString("This is a game", 50, 100);
+			g.drawString("Press z to shoot", 50, 112);
+			g.drawString("Press shift to go slower", 50, 124);
+			g.drawString("Shoot at the blue dot. Don't touch ANYTHING.", 50, 136);
+			g.drawString("Getting hit takes 150 points.", 50, 148);
+			g.drawString("Get a high score please", 50, 160);
+			g.drawString("Press s to start", 50, 172);
+			break;
+		case PLAY:
+			for(int i = 0; i < shots.size(); i++){
+				shots.get(i).draw(g);
+			}
+			for(int j = 0; j < eShot.size(); j++){
+				eShot.get(j).draw(g);
+			}
+			for(int i = 0; i < eList.size(); i++){
+				eList.get(i).draw(g);
+			}
+			lilly.draw(g);
+			break;
+		case END:
+			g.drawString("Your score was:" + Double.toString((int)score), 150, 200);
+			String howgood = null;
+			if(score < 0){howgood = "F";};
+			if(score >= 0&&score < 499){howgood = "D";};
+			if(score >= 500&&score < 1000){howgood = "C";};
+			if(score >= 1001&&score < 2499){howgood = "B";};
+			if(score >= 2500&&score < 4999){howgood = "A";};
+			if(score >= 5000&&score < 7499){howgood = "S";};
+			if(score >= 7500&&score < 9999){howgood = "SS";};
+			if(score >= 10000){howgood = "SSS";};
+		
+			g.drawString(howgood, 150, 220);
+			break;
+		default:
+			break;
 		}
-		for(int j = 0; j < eShot.size(); j++){
-			eShot.get(j).draw(g);
-		}
-		for(int i = 0; i < eList.size(); i++){
-			eList.get(i).draw(g);
-		}
-		lilly.draw(g);
-		g.drawString("Score:" + Integer.toString(score), 50, 50);
-		g.drawString("Enemy Health "+ Double.toString(joo.getHealth()), 50, 65);
+		g.setColor(Color.BLACK);
+		g.fillRect(800, 0, 400, 800);
+		g.setColor(Color.WHITE);
+		g.drawString("Score: " + Integer.toString((int)score), 900, 40);
+		g.drawString("Graze:" + Integer.toString((int)graze), 900, 90);
+		g.drawString("Lives: " + Integer.toString(lilly.getLives()), 900, 120);
+		g.drawString(status , 900, 140);
 		
 	}
 	

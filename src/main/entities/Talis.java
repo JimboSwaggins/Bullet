@@ -1,9 +1,11 @@
-package main.engine;
+package main.entities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class eTalis {
+import main.engine.GamePanel;
+
+public class Talis {
 	private double x;
 	private double y;
 	
@@ -22,12 +24,7 @@ public class eTalis {
 	public double getY(){return y;}
 	public double getR(){return r;}
 	
-	
-	public enum shotType{
-		LINEAR, QUADRATIC
-	}
-	
-	public eTalis(double angle, double x, double y, double speed, int radius, Color COLOR){
+	public Talis(double angle, int x, int y, double speed, int radius, Color COLOR){
 		
 		this.x = x;
 		this.y = y;
@@ -40,8 +37,6 @@ public class eTalis {
 		
 		this.dx = Math.cos(rad) * speed;
 		this.dy = Math.sin(rad) * speed;
-		
-		
 		
 		color1 = COLOR;
 	}

@@ -1,29 +1,32 @@
-package main.engine;
+package main.entities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Talis {
-	private double x;
-	private double y;
+public class eTalis {
+	protected double x;
+	protected double y;
 	
-	private int r;
+	protected int r;
 	
-	private double dx;
-	private double dy;
+	protected double dx;
+	protected double dy;
 	
-	@SuppressWarnings("unused")
-	private double speed;
-	private double rad;
+	protected double speed;
+	protected double rad;
 	
-	private Color color1;
+	protected Color color1;
 	
 	public double getX(){return x;}
 	public double getY(){return y;}
 	public double getR(){return r;}
 	
-	public Talis(double angle, int x, int y, double speed, int radius, Color COLOR){
-		
+	
+	public enum shotType{
+		LINEAR, QUADRATIC
+	}
+	
+	public eTalis(double angle, double x, double y, double speed, int radius, Color COLOR){
 		this.x = x;
 		this.y = y;
 		r = radius;
@@ -32,21 +35,17 @@ public class Talis {
 		
 		this.speed = speed;
 		
-		
 		this.dx = Math.cos(rad) * speed;
 		this.dy = Math.sin(rad) * speed;
 		
-		
-		
 		color1 = COLOR;
 	}
-	
 	public boolean update(){
 		x += dx;
 		y += dy;
 		
-		if(x < -r || x > GamePanel.Width + r||
-				y < -r ||  y > GamePanel.Height + r){
+		if(x < -r || x > 800 + r||
+				y < -r ||  y > 800 + r){
 			return true;
 		}
 		
@@ -58,7 +57,5 @@ public class Talis {
 		g.setColor(color1);
 		g.fillOval((int)(x-r), (int)(y-r), 2*r, 2*r);
 	}
-	
-	
-	
+
 }
