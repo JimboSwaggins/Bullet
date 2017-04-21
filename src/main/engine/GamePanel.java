@@ -31,11 +31,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	public static double score;
 	public static double graze;
-	@SuppressWarnings("unused")
 	private int FPS;
 	@SuppressWarnings("unused")
 	private double averageFPS;
 
+	@SuppressWarnings("unused")
 	private Stage1 meme;
 	public static void point(){
 		score++;
@@ -99,7 +99,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 			if(keyCode == KeyEvent.VK_SHIFT){
 				lilly.setFocus(true);
-				FPS = 1;
 			}
 			if(keyCode == KeyEvent.VK_Z){
 				lilly.setFiring(true);
@@ -111,6 +110,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			if(keyCode == KeyEvent.VK_S){
 				state = GameState.PLAY;
 				meme = new Stage1();
+				takeLife();
 			}
 			break;
 		default:
@@ -135,7 +135,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
 		if(keyCode == KeyEvent.VK_SHIFT){
 			lilly.setFocus(false);
-			FPS = 60;
 		}
 		if(keyCode == KeyEvent.VK_Z){
 			lilly.setFiring(false);
@@ -176,7 +175,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		int frameCount = 0;
 		int maxFrameCount = 60;
 		
-		int FPS = 60;
+		
 		
 		long targetTime = 1000 / FPS;
 		
@@ -282,7 +281,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					
 					double ex = lilly.getX();
 					double ey = lilly.getY();
-					double playerRadius = lilly.getR();
 					
 					double dx = px - ex;
 					double dy = py - ey;
