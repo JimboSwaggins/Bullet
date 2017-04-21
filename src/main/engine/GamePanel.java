@@ -244,6 +244,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					eShot.remove(j);
 					j--;
 					
+					
 				}
 			}
 			
