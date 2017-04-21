@@ -287,11 +287,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dy = py - ey;
 					double dist = Math.sqrt(dx*dx + dy*dy);
 					if(projRadius > 2){
-						if(dist < projRadius + playerRadius&&dist >= 2){
+						if((int)dist < projRadius + 1&&dist > 2){
 							graze++;
 						}			
-						if(dist < projRadius/2){
-							score -= 1500;
+						if((int)dist < projRadius){
+							if(graze - 50 < 0){
+								graze = 0;
+							}else{
+								graze -= 50;
+							}
 							eShot.remove(k);
 							takeLife();
 							k--;
@@ -299,24 +303,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 						}
 					}
 					else{
-						if(dist < projRadius + playerRadius&&dist >= 2){
+						if((int)dist < projRadius + 1&&dist > 2){
 							graze++;
 						}			
-						if(dist < projRadius){
-							score -= 1500;
+						if((int)dist < projRadius){
+							if(graze - 50 < 0){
+								graze = 0;
+							}else{
+								graze -= 50;
+							}
 							eShot.remove(k);
 							takeLife();
 							k--;
 							break;
-						}
-					}
-					
-					//Clears screen after enemies die
-					if(eList.size() == 0){
-						for(int i = 0; i< eShot.size(); i++){
-							eShot.remove(i);
-							score += (1 + (0.001 * graze));
-							i--;
 						}
 					}
 				}
@@ -336,20 +335,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		switch(lilly.getLives()){
 		case 0 :
 			GamePanel.state = GameState.END;
-			status = "dead xd";
 			break;
-			
-		case 1 :
-			status = "oh no";
-			break;
-			
-		case 2 :
-			status = "almost dead xd";
-			break;
-			
 		default:
 			break;
-		
 		}
 		
 	}
@@ -398,6 +386,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			if(score >= 5000&&score < 7499){howgood = "S";};
 			if(score >= 7500&&score < 9999){howgood = "SS";};
 			if(score >= 10000){howgood = "SSS";};
+		
 			g.drawString(howgood, 150, 220);
 			break;
 		default:
