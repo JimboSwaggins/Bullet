@@ -135,11 +135,6 @@ public class Player {
 			for(int i = 0; i < GamePanel.eShot.size(); i++){
 				GamePanel.eShot.clear();
 			}
-			bombs--;
-			new memeSpiral(this);
-		}
-		else{
-			System.out.println("LOL NOP");
 		}
 	}
 	
