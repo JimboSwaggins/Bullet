@@ -53,8 +53,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	private static GameState state;
-	 
-	public String status = "Keep it Up";
 	
 	public static Player lilly;
 	public static ArrayList<Talis> shots;
@@ -397,7 +395,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g.drawString("Score: " + Integer.toString((int)score), 900, 40);
 		g.drawString("Graze:" + Integer.toString((int)graze), 900, 90);
 		g.drawString("Lives: " + Integer.toString(lilly.getLives()), 900, 120);
-		g.drawString(status , 900, 140);
 		
 	}
 	
