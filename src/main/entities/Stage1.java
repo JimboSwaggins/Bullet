@@ -3,6 +3,9 @@ package main.entities;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import main.engine.GamePanel;
+import main.entities.Fairy.AI;
+
 public class Stage1 extends Stage{
 	public static Timer stageTimer;
 	public static TimerTask todo;
