@@ -58,7 +58,7 @@ public class Player {
 		rot = 270;
 		x = 400;
 		y = 800;
-		lives = 9999999;
+    lives = 9999;
 		r = 8;
 		
 		dx = 0;
