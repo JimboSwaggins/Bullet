@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	@SuppressWarnings("unused")
 	private double averageFPS;
 
+	@SuppressWarnings("unused")
 	private Stage1 meme;
 	public static void point(){
 		score++;
