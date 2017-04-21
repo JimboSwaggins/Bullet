@@ -112,6 +112,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			if(keyCode == KeyEvent.VK_S){
 				state = GameState.PLAY;
 				meme = new Stage1();
+				takeLife();
 			}
 			break;
 		default:
@@ -136,7 +137,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
 		if(keyCode == KeyEvent.VK_SHIFT){
 			lilly.setFocus(false);
-			FPS = 60;
 		}
 		if(keyCode == KeyEvent.VK_Z){
 			lilly.setFiring(false);
@@ -178,6 +178,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		int maxFrameCount = 60;
 		
 		int FPS = 60;
+		
 		
 		long targetTime = 1000 / FPS;
 		
@@ -245,6 +246,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					eShot.remove(j);
 					j--;
 					
+					
 				}
 			}
 			
@@ -289,10 +291,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dist = Math.sqrt(dx*dx + dy*dy);
 					if(projRadius > 2){
 						if(dist < projRadius + playerRadius&&dist >= 2){
+						if((int)dist < projRadius + 1&&dist > 2){
 							graze++;
 						}			
 						if(dist < projRadius/2){
 							score -= 1500;
+						if((int)dist < projRadius){
+							if(graze - 50 < 0){
+								graze = 0;
+							}else{
+								graze -= 50;
+							}
 							eShot.remove(k);
 							takeLife();
 							k--;
@@ -301,10 +310,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					}
 					else{
 						if(dist < projRadius + playerRadius&&dist >= 2){
+						if((int)dist < projRadius + 1&&dist > 2){
 							graze++;
 						}			
 						if(dist < projRadius){
 							score -= 1500;
+						if((int)dist < projRadius){
+							if(graze - 50 < 0){
+								graze = 0;
+							}else{
+								graze -= 50;
+							}
 							eShot.remove(k);
 							takeLife();
 							k--;
@@ -399,6 +415,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			if(score >= 5000&&score < 7499){howgood = "S";};
 			if(score >= 7500&&score < 9999){howgood = "SS";};
 			if(score >= 10000){howgood = "SSS";};
+		
 			g.drawString(howgood, 150, 220);
 			break;
 		default:
