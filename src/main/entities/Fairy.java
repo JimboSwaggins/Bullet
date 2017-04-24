@@ -27,11 +27,11 @@ public class Fairy extends Bad{
 	}
 	
 	public enum AI{
-		DOWN, LEFT, RIGHT, UP, RQUAD, LQUAD, CQUAD, ASIN
+		DOWN, LEFT, RIGHT, UP, RQUAD, LQUAD, CQUAD, ASIN, BCOS
 	}
 	
 	public enum shotType{
-		TARGET
+		TARGET, SPIRAL
 	}
 	
 	
@@ -68,6 +68,10 @@ public class Fairy extends Bad{
 			x++;
 			y += -10*(Math.sin(x/31.83098862));
 			break;
+		case BCOS: 
+			x += .0025*Math.abs(400-x) + 1;
+			y = 0.0049*(x-400)*(x-400)*(Math.cos((Math.PI * x)/50));
+			break;
 		default:
 			break;
 				
@@ -80,6 +84,9 @@ public class Fairy extends Bad{
 			switch(pattern){
 			case TARGET:
 				targeted(3, 5, Color.RED, player);
+				break;
+			case SPIRAL:
+				spiral(7, .5, 5, Color.RED, 8 );
 				break;
 			default:
 				break;
